@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BoxTest.cpp" />
+    <ClCompile Include="SphereTest.cpp" />
+    <ClCompile Include="ConeTest.cpp" />
+    <ClCompile Include="CylinderTest.cpp" />
+    <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="ToleranceTest.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="SpaceTest.cpp" />
+    <ClCompile Include="BitmapTest.cpp" />
+    <ClCompile Include="VectorTest.cpp" />
+    <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="BitSpaceTest.cpp" />
+    <ClCompile Include="KernelTest.cpp" />
+    <ClCompile Include="GridSpaseBaseTest.cpp" />
+    <ClCompile Include="GridTest.cpp" />
+    <ClCompile Include="VolumeTest.cpp" />
+    <ClCompile Include="LineTest.cpp" />
+    <ClCompile Include="DensityTest.cpp" />
+    <ClCompile Include="RangeTest.cpp" />
+    <ClCompile Include="MarchingCubeTableTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="MarchingCubeTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="BitMarchingCubeTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Math\Box.h" />
+    <ClInclude Include="..\Math\Cone.h" />
+    <ClInclude Include="..\Math\Cylinder.h" />
+    <ClInclude Include="..\Math\Quaternion.h" />
+    <ClInclude Include="..\Math\Sphere.h" />
+    <ClInclude Include="..\Math\Tolerance.h" />
+    <ClInclude Include="..\Math\Triangle.h" />
+    <ClInclude Include="..\Math\Space.h" />
+    <ClInclude Include="..\Math\Bitmap.h" />
+    <ClInclude Include="..\Math\Vector.h" />
+    <ClInclude Include="..\Math\Matrix.h" />
+    <ClInclude Include="..\Math\Grid.h" />
+    <ClInclude Include="..\Math\BitSpace.h" />
+    <ClInclude Include="..\Math\Kernel.h" />
+    <ClInclude Include="..\Math\GridSpaceBase.h" />
+    <ClInclude Include="Volume.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Density.h" />
+    <ClInclude Include="Range.h" />
+    <ClInclude Include="Parameter.h" />
+    <ClInclude Include="..\Math\MarchingCube.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="MarchingCubeTable.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+    <ClInclude Include="BitMarchingCube.h">
+      <Filter>MarchingCube</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="MarchingCube">
+      <UniqueIdentifier>{eb10b78b-717d-41f3-86ae-f05a05201328}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
