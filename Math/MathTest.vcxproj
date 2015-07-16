@@ -60,6 +60,7 @@
     <ClInclude Include="PositionValue.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Volume.h" />
+    <ClInclude Include="VolumeCell.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>

@@ -78,6 +78,9 @@
     <ClInclude Include="PositionValue.h">
       <Filter>MarchingCube</Filter>
     </ClInclude>
+    <ClInclude Include="VolumeCell.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MarchingCube">

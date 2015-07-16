@@ -4,30 +4,13 @@
 #include "Grid.h"
 #include "Space.h"
 #include "GridSpaceBase.h"
+#include "VolumeCell.h"
 
 #include <memory>
 #include <list>
 
 namespace Crystal {
 	namespace Math {
-
-template< typename GeomType, typename ValueType >
-class VolumeCell3d
-{
-public:
-	VolumeCell3d(const Space3d<GeomType>& space, const std::array< ValueType, 8>& values) :
-		space(space),
-		values(values)
-	{}
-
-	Space3d<GeomType> getSpace() const { return space; }
-
-	std::array< ValueType, 8 > getValues() const { return values; }
-
-private:
-	Space3d<GeomType> space;
-	std::array< ValueType, 8> values;
-};
 
 
 template< typename GeomType, typename ValueType = float>
