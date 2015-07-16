@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_VOLUME_CELL_H__
 
 #include "Space.h"
+#include "PositionValue.h"
 #include <array>
 
 namespace Crystal {
@@ -19,6 +20,15 @@ public:
 	Space3d<GeomType> getSpace() const { return space; }
 
 	std::array< ValueType, 8 > getValues() const { return values; }
+
+	std::array< PositionValue<GeomType, ValueType>, 8 > toPositionValues() const {
+		std::array< PositionValue, 8 > pvs;
+		const auto& positions = space.toArray();
+		for (size_t i = 0; i < 8; ++i) {
+			pvs[i] = PositionValue<GeomType, ValueType>(positions[i], values[i]);
+		}
+		return pvs;
+	}
 
 private:
 	Space3d<GeomType> space;

@@ -38,6 +38,9 @@
     <ClCompile Include="PositionValueTest.cpp">
       <Filter>MarchingCube</Filter>
     </ClCompile>
+    <ClCompile Include="VolumeCellTest.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
