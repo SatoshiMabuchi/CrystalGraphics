@@ -25,6 +25,7 @@
     <ClCompile Include="MarchingCubeTableTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="PositionValueTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="RangeTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Parameter.h" />
+    <ClInclude Include="PositionValue.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Volume.h" />
   </ItemGroup>

@@ -35,6 +35,9 @@
     <ClCompile Include="GridTest.cpp">
       <Filter>Grid</Filter>
     </ClCompile>
+    <ClCompile Include="PositionValueTest.cpp">
+      <Filter>MarchingCube</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
@@ -71,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="..\Math\Grid.h">
       <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionValue.h">
+      <Filter>MarchingCube</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
