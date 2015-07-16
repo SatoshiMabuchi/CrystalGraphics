@@ -20,10 +20,6 @@ public:
 		values(values)
 	{}
 
-	//getStart() const 
-
-	//std::array<Vector3d<T>, 8> getPositions() const { return }
-
 	Space3d<GeomType> getSpace() const { return space; }
 
 	std::array< ValueType, 8 > getValues() const { return values; }

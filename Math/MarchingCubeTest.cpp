@@ -16,67 +16,6 @@ using TestTypes = ::testing::Types <
 
 TYPED_TEST_CASE(MarchingCubeTest, TestTypes);
 
-//
-//TEST(MarchingCubeTest, TestMarchFloats)
-//{
-//	MarchingCube<float> mc;
-//	mc.buildTable();
-//
-//	Space3d<float> s(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
-//
-//	const std::array< float, 8 > vs = { 0, 0, 0, 0, 1, 1, 1, 1 };
-//	const auto actual = mc.build( s, vs,0.5).getTriangles();
-//	EXPECT_EQ(2, actual.size());
-//
-//	{
-//		const auto actual = mc.build(s, { 0, 0, 0, 0, 0, 0, 0, 0 }, 0.5);
-//		EXPECT_EQ(0, actual.size());
-//	}
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 0, 0, 0, 0, 0 },0.5);
-//		EXPECT_EQ(1, actual.size());
-//	}
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 1, 0, 0, 0, 0, 0, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//
-//	/*
-//	{
-//		const auto actual = mc.Polygonise(p, { 1, 0, 1, 0, 0, 1, 0, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//	*/
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 0, 0, 0, 1, 0 }, 0.5);
-//		EXPECT_EQ(2, actual.size());
-//	}
-//
-//	/*
-//	{
-//		const auto actual = mc.Polygonise(p, { 0, 1, 0, 1, 0, 0, 1, 0 }, 0.5);
-//		EXPECT_EQ(3, actual.size());
-//	}
-//	*/
-//
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 0, 0, 1, 0, 1, 1, 0 }, 0.5);
-//		EXPECT_EQ(4, actual.size());
-//	}
-//
-//
-//	{
-//		const auto actual = mc.build(s, { 1, 1, 1, 1, 1, 1, 1, 1 }, 0.5);
-//		EXPECT_EQ(0, actual.size());
-//	}
-//
-//}
-
-
 
 TYPED_TEST(MarchingCubeTest, TestMarchScalarSpace)
 {

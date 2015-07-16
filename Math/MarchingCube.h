@@ -36,18 +36,18 @@ public:
 		TriangleVector<GeomType> triangles;
 		const auto& cells = ss.toBoundaryCells(isolevel);
 		for (const auto& c : cells) {
-			const auto& ts = build(c.getSpace(), c.getValues(), isolevel);
+			const auto& ts = build(c, isolevel);
 			triangles.insert(triangles.end(), ts.begin(), ts.end());
 		}
 		return std::move(triangles);
 	}
 
-	TriangleVector<GeomType> build(const Space3d<GeomType>& s, const std::array< ValueType, 8 >& val, const ValueType isolevel) const
+	TriangleVector<GeomType> build(const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const
 	{
 		TriangleVector<GeomType> triangles;
-		const std::array< Vector3d<GeomType>, 8 >& vs = s.toArray();
-		const int cubeindex = getCubeIndex( val, isolevel );
-		const auto& vertices = getPositions(cubeindex, vs, val, isolevel);
+		const auto& vs = cell.getSpace().toArray();
+		const int cubeindex = getCubeIndex( cell.getValues(), isolevel );
+		const auto& vertices = getPositions(cubeindex, cell, isolevel);
 		return std::move( build(cubeindex, vertices) );
 	}
 
@@ -83,8 +83,10 @@ private:
 
 
 
-	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const std::array< Vector3d<GeomType>, 8 > p, const std::array< ValueType, 8 >& val, const ValueType isolevel) const {
+	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const {
 		std::array< Vector3d<GeomType>, 12 > vertices;
+		const auto& p = cell.getSpace().toArray();
+		const auto& val = cell.getValues();
 		const auto& edgeTable = table.getEdgeTable();
 		if (edgeTable[cubeindex][0]) {
 			vertices[0] = interpolate(isolevel, p[0], p[1], val[0], val[1]);

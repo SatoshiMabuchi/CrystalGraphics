@@ -14,9 +14,6 @@
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
-    <ClCompile Include="GridSpaseBaseTest.cpp" />
-    <ClCompile Include="GridTest.cpp" />
-    <ClCompile Include="VolumeTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
     <ClCompile Include="DensityTest.cpp" />
     <ClCompile Include="RangeTest.cpp" />
@@ -28,6 +25,15 @@
     </ClCompile>
     <ClCompile Include="BitMarchingCubeTest.cpp">
       <Filter>MarchingCube</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeTest.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="GridSpaseBaseTest.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="GridTest.cpp">
+      <Filter>Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -42,11 +48,8 @@
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="..\Math\Matrix.h" />
-    <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Kernel.h" />
-    <ClInclude Include="..\Math\GridSpaceBase.h" />
-    <ClInclude Include="Volume.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
@@ -60,10 +63,22 @@
     <ClInclude Include="BitMarchingCube.h">
       <Filter>MarchingCube</Filter>
     </ClInclude>
+    <ClInclude Include="Volume.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Math\GridSpaceBase.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Math\Grid.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="MarchingCube">
       <UniqueIdentifier>{eb10b78b-717d-41f3-86ae-f05a05201328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grid">
+      <UniqueIdentifier>{db87e6df-9f14-43fe-8130-2da773d85209}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
