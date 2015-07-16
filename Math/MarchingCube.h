@@ -16,6 +16,32 @@ namespace Crystal {
 	namespace Math {
 
 template<typename GeomType, typename ValueType>
+class PositionValue
+{
+public:
+	PositionValue(const Vector3d<GeomType>& p, const ValueType& v) :
+		pos(p),
+		value(v)
+	{}
+
+	Vector3d<GeomType> getInterpolatedPosition(const ValueType isolevel, PositionValue& rhs ) const
+	{
+		const auto mu = (isolevel - this->value) / (rhs.value - this->value);
+		return this->pos + mu * (rhs.pos - this->pos);
+	}
+
+	/*
+	Math::Vector3d<GeomType> getPosition() const { return pos; }
+
+	ValueType getValue() const { return value; }
+	*/
+
+private:
+	Math::Vector3d<GeomType> pos;
+	ValueType value;
+};
+
+template<typename GeomType, typename ValueType>
 class MarchingCube final : UnCopyable
 {
 public:
@@ -45,7 +71,6 @@ public:
 	TriangleVector<GeomType> build(const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const
 	{
 		TriangleVector<GeomType> triangles;
-		const auto& vs = cell.getSpace().toArray();
 		const int cubeindex = getCubeIndex( cell.getValues(), isolevel );
 		const auto& vertices = getPositions(cubeindex, cell, isolevel);
 		return std::move( build(cubeindex, vertices) );
