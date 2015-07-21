@@ -26,11 +26,6 @@ public:
 
 	~MarchingCube() = default;
 
-	Vector3d<GeomType> interpolate(const ValueType isolevel, const Vector3d<GeomType>& p1, const Vector3d<GeomType>& p2, const ValueType valp1, const ValueType valp2) const {
-		const auto mu = (isolevel - valp1) / (valp2 - valp1);
-		return p1 + mu *(p2 - p1);
-	}
-
 	TriangleVector<GeomType> march(const Volume3d<GeomType, ValueType>& ss, const ValueType isolevel) const
 	{
 		TriangleVector<GeomType> triangles;
@@ -42,16 +37,16 @@ public:
 		return std::move(triangles);
 	}
 
-	TriangleVector<GeomType> build(const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const
-	{
-		TriangleVector<GeomType> triangles;
-		const int cubeindex = getCubeIndex( cell.getValues(), isolevel );
-		const auto& vertices = getPositions(cubeindex, cell, isolevel);
-		return std::move( build(cubeindex, vertices) );
-	}
-
 private:
 	MarchingCubeTable table;
+
+	TriangleVector<GeomType> build(const VolumeCell3d<GeomType, ValueType>& cell, const ValueType isolevel) const
+	{
+		TriangleVector<GeomType> triangles;
+		const int cubeindex = getCubeIndex(cell.getValues(), isolevel);
+		const auto& vertices = getPositions(cubeindex, cell, isolevel);
+		return std::move(build(cubeindex, vertices));
+	}
 
 	TriangleVector<GeomType> build(const int cubeindex, const std::array<Vector3d<GeomType>, 12>& vertices) const {
 		TriangleVector<GeomType> triangles;
@@ -84,44 +79,44 @@ private:
 
 	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const {
 		std::array< Vector3d<GeomType>, 12 > vertices;
-		const auto& p = cell.getSpace().toArray();
-		const auto& val = cell.getValues();
+		//const PositionValue
+		const auto& pvs = cell.toPositionValues();
 		const auto& edgeTable = table.getEdgeTable();
 		if (edgeTable[cubeindex][0]) {
-			vertices[0] = interpolate(isolevel, p[0], p[1], val[0], val[1]);
+			vertices[0] = pvs[0].getInterpolatedPosition(isolevel, pvs[1]); // interpolate(isolevel, p[0], p[1], val[0], val[1]);
 		}
 		if (edgeTable[cubeindex][1]) {
-			vertices[1] = interpolate(isolevel, p[1], p[2], val[1], val[2]);
+			vertices[1] = pvs[1].getInterpolatedPosition(isolevel, pvs[2]);
 		}
 		if (edgeTable[cubeindex][2]) {
-			vertices[2] = interpolate(isolevel, p[2], p[3], val[2], val[3]);
+			vertices[2] = pvs[2].getInterpolatedPosition(isolevel, pvs[3]);
 		}
 		if (edgeTable[cubeindex][3]) {
-			vertices[3] = interpolate(isolevel, p[3], p[0], val[3], val[0]);
+			vertices[3] = pvs[3].getInterpolatedPosition(isolevel, pvs[0]);
 		}
 		if (edgeTable[cubeindex][4]) {
-			vertices[4] = interpolate(isolevel, p[4], p[5], val[4], val[5]);
+			vertices[4] = pvs[4].getInterpolatedPosition(isolevel, pvs[5]);
 		}
 		if (edgeTable[cubeindex][5]) {
-			vertices[5] = interpolate(isolevel, p[5], p[6], val[5], val[6]);
+			vertices[5] = pvs[5].getInterpolatedPosition(isolevel, pvs[6]);
 		}
 		if (edgeTable[cubeindex][6]) {
-			vertices[6] = interpolate(isolevel, p[6], p[7], val[6], val[7]);
+			vertices[6] = pvs[6].getInterpolatedPosition(isolevel, pvs[7]);
 		}
 		if (edgeTable[cubeindex][7]) {
-			vertices[7] = interpolate(isolevel, p[7], p[4], val[7], val[4]);
+			vertices[7] = pvs[7].getInterpolatedPosition(isolevel, pvs[4]);
 		}
 		if (edgeTable[cubeindex][8]) {
-			vertices[8] = interpolate(isolevel, p[0], p[4], val[0], val[4]);
+			vertices[8] = pvs[0].getInterpolatedPosition(isolevel, pvs[4]);
 		}
 		if (edgeTable[cubeindex][9]) {
-			vertices[9] = interpolate(isolevel, p[1], p[5], val[1], val[5]);
+			vertices[9] = pvs[1].getInterpolatedPosition(isolevel, pvs[5]);
 		}
 		if (edgeTable[cubeindex][10]) {
-			vertices[10] = interpolate(isolevel, p[2], p[6], val[2], val[6]);
+			vertices[10] = pvs[2].getInterpolatedPosition(isolevel, pvs[6]);
 		}
 		if (edgeTable[cubeindex][11]) {
-			vertices[11] = interpolate(isolevel, p[3], p[7], val[3], val[7]);
+			vertices[11] = pvs[3].getInterpolatedPosition(isolevel, pvs[7]);
 		}
 		return vertices;
 	}

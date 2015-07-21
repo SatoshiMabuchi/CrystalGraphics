@@ -21,7 +21,7 @@ public:
 		value(v)
 	{}
 
-	Vector3d<GeomType> getInterpolatedPosition(const ValueType v, PositionValue& rhs) const
+	Vector3d<GeomType> getInterpolatedPosition(const ValueType v, const PositionValue& rhs) const
 	{
 		const GeomType scale = (v - this->value) / static_cast<GeomType>(rhs.value - this->value);
 		return this->pos + scale * (rhs.pos - this->pos);
