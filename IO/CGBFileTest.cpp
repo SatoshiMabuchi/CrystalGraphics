@@ -9,6 +9,14 @@ using namespace tinyxml2;
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 
+TEST(ImageFileTest, Test)
+{
+	ImageFile file("folder", "file", ImageFile::Type::BMP);
+	const std::string expected = "folder\\file.bmp";
+	const auto& actual = file.getFileNameIncludingPath();
+	EXPECT_EQ(expected, actual);
+}
+
 TEST(CGBFileTest, TestBuild)
 {
 	CGBFile file;

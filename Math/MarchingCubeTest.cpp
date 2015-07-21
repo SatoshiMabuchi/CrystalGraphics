@@ -5,8 +5,8 @@
 using namespace Crystal::Math;
 
 using TestTypes = ::testing::Types <
-	std::tuple< float, float >//,
-	//	std::tuple< float, unsigned char >
+	std::tuple< float, float >,
+	std::tuple< float, unsigned char >
 >;
 
 template<class T>
