@@ -16,5 +16,7 @@
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="CGBFile.h" />
+    <ClInclude Include="ImageFile.h" />
+    <ClInclude Include="VolumeFile.h" />
   </ItemGroup>
 </Project>
