@@ -1,5 +1,4 @@
 #include "CGBFile.h"
-#include "../ThirdParty/tinyxml2-master/tinyxml2.cpp"
 
 using namespace Crystal::Math;
 using namespace Crystal::IO;
@@ -18,6 +17,7 @@ static tinyxml2::XMLElement* create(XMLDocument& xml, const std::string& str, co
 
 	return e;
 }
+
 
 
 bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
@@ -49,10 +49,17 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 	root->InsertEndChild(create(*xml, "length", volume.getSpace().getLengths()));
 
 	{
-		XMLElement* e = xml->NewElement("image");
-		root->InsertEndChild(e);
+		XMLElement* e = xml->NewElement("volume");
 
+		ImageFile image("Folder","FileName", ImageFile::Type::PNG);
+		XMLElement* elem = xml->NewElement("Path");
+		const auto& str =  image.getFileNameIncludingPath();
+		elem->SetAttribute("Path", str.c_str());
+		e->InsertEndChild(elem);
+
+		root->InsertEndChild(e);
 	}
+
 	//for (size_t i = 0; i < )
 	
 	return xml;

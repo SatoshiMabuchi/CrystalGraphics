@@ -7,6 +7,9 @@
     <ClCompile Include="DXFFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="CGBFile.cpp" />
+    <ClCompile Include="VolumeFile.cpp" />
+    <ClCompile Include="ImageFile.cpp" />
+    <ClCompile Include="TinyXML.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h" />
@@ -18,5 +21,6 @@
     <ClInclude Include="CGBFile.h" />
     <ClInclude Include="ImageFile.h" />
     <ClInclude Include="VolumeFile.h" />
+    <ClInclude Include="TinyXML.h" />
   </ItemGroup>
 </Project>

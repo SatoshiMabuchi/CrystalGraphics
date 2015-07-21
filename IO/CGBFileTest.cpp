@@ -17,6 +17,7 @@ TEST(ImageFileTest, Test)
 	EXPECT_EQ(expected, actual);
 }
 
+
 TEST(CGBFileTest, TestBuild)
 {
 	CGBFile file;

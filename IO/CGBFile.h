@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_IO_CGB_FILE_H__
 #define __CRYSTAL_IO_CGB_FILE_H__
 
-#include "../ThirdParty/tinyxml2-master/tinyxml2.h"
+#include "TinyXML.h"
 
 #include "../Math/Volume.h"
 

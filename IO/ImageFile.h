@@ -1,6 +1,9 @@
 #ifndef __CRYSTAL_IO_IMAGE_FILE_H__
 #define __CRYSTAL_IO_IMAGE_FILE_H__
 
+#include <string>
+#include "TinyXML.h"
+
 namespace Crystal {
 	namespace IO {
 
@@ -22,27 +25,15 @@ public:
 		return folderPath + "\\" + filename + getExtension(type);
 	}
 
+	tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc);
+
 
 private:
 	Type type;
 	std::string folderPath;
 	std::string filename;
 
-	std::string getExtension(const Type& type) const {
-		if (type == Type::BMP) {
-			return ".bmp";
-		}
-		else if (type == Type::PNG) {
-			return ".png";
-		}
-		else if (type == Type::JPEG) {
-			return ".jpeg";
-		}
-		else {
-			assert(false);
-			return "";
-		}
-	}
+	std::string getExtension(const Type& type) const;
 
 };
 
