@@ -1,5 +1,7 @@
 #include "CGBFile.h"
 
+#include "VolumeFile.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::IO;
 using namespace tinyxml2;
@@ -51,11 +53,16 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 	{
 		XMLElement* e = xml->NewElement("volume");
 
-		ImageFile image("Folder","FileName", ImageFile::Type::PNG);
-		XMLElement* elem = xml->NewElement("Path");
-		const auto& str =  image.getFileNameIncludingPath();
-		elem->SetAttribute("Path", str.c_str());
-		e->InsertEndChild(elem);
+		e->SetAttribute("type", "unsigned char");
+
+		VolumeFile vFile("Folder");
+		for (size_t i = 0; i < volume.getResolutions()[2]; ++i) {
+			const auto iFile = vFile.toImageFile( "image", i, ImageFile::Type::PNG);
+			XMLElement* elem = xml->NewElement("image");
+			const auto& str = iFile.getFileNameIncludingPath();
+			elem->SetAttribute("path", str.c_str());
+			e->InsertEndChild(elem);
+		}
 
 		root->InsertEndChild(e);
 	}
@@ -66,19 +73,6 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 
 }
 
-std::vector< std::string > CGBFile::getImageFileNames(const std::string& folderpath, const std::string& baseFileName, const Volume3d<float>& volume)
-{
-	std::vector< std::string > filenames;
-	for (size_t i = 0; i < volume.getResolutions()[2]; ++i) {
-		filenames.push_back(toImageFileName(folderpath, baseFileName, i));
-	}
-	return filenames;
-}
-
-std::string CGBFile::toImageFileName(const std::string& folderpath, const std::string& baseFileName, const int index)
-{
-	return folderpath + baseFileName + std::to_string(index);
-}
 
 bool CGBFile::load(const std::string& filename, Volume3d<float>& volume)
 {

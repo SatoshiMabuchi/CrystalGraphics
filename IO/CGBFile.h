@@ -25,10 +25,6 @@ public:
 
 	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<float>& volume);
 
-	std::vector< std::string > getImageFileNames(const std::string& folderpath, const std::string& baseFileName, const Math::Volume3d<float>& volume);
-
-	std::string toImageFileName(const std::string& folderpath, const std::string& baseFileName, const int index);
-
 	bool load(const std::string& filename, Math::Volume3d<float>& volume);
 
 	bool parse(tinyxml2::XMLDocument& xml, Math::Volume3d<float>& volume);

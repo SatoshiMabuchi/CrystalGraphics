@@ -25,8 +25,6 @@ public:
 		return folderPath + "\\" + filename + getExtension(type);
 	}
 
-	tinyxml2::XMLElement* toXML(tinyxml2::XMLDocument& doc);
-
 
 private:
 	Type type;
