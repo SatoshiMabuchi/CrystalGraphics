@@ -31,7 +31,7 @@ Vector3d<float> XMLHelper::parse(tinyxml2::XMLElement& elem)
 template<typename GeomType, typename ValueType>
 bool CGBFile<GeomType, ValueType>::save(const std::string& directoryname, const std::string& fn, const Volume3d<GeomType, ValueType>& volume)
 {	
-	const std::string& filename = directoryname + fn;
+	const std::string& filename = directoryname + "/" + fn;
 	XMLDocument xml;
 	XMLDeclaration* decl = xml.NewDeclaration();
 	xml.InsertEndChild(decl);
