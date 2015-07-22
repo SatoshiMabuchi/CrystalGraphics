@@ -32,7 +32,7 @@ TEST(CGBFileTest, TestBuild)
 TEST(CGBFileTest, TestParse)
 {
 	XMLDocument doc;
-	doc.LoadFile("./CGBTestFile.cgb");
+	doc.LoadFile("../IO/CGBTestFile.cgb");
 	CGBFile<float, unsigned char> file;
 	file.parse(doc);
 }

@@ -9,7 +9,6 @@
 namespace Crystal {
 	namespace Graphics {
 
-//template<typename GeomType, typename ValueType>
 class DisplayList final
 {
 public:

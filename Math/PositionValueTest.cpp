@@ -9,8 +9,8 @@ class PositionValueTest : public testing::Test {
 };
 
 using TestTypes = ::testing::Types <
-	std::tuple< float, float >,
-	std::tuple< float, unsigned char >
+	std::tuple< float, float >//,
+//	std::tuple< float, unsigned char >
 >;
 
 TYPED_TEST_CASE(PositionValueTest, TestTypes);

@@ -5,15 +5,32 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 
-TEST(BrushTest, TestConstruct)
+template<class T>
+class BrushTest : public testing::Test {
+};
+
+using TestTypes = ::testing::Types <
+	std::tuple< float, float >,
+	std::tuple< float, unsigned char >
+>;
+
+TYPED_TEST_CASE(BrushTest, TestTypes);
+
+TYPED_TEST(BrushTest, TestConstruct)
 {
-	BlendBrush<float> brush;
-	EXPECT_EQ( Vector3d<float>(1,1,1), brush.getSize() );
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+	BlendBrush<GeomType, ValueType> brush;
+	EXPECT_EQ( Vector3d<GeomType>(1,1,1), brush.getSize() );
 }
 
-TEST(BrushTest, TestMove)
+TYPED_TEST(BrushTest, TestMove)
 {
-	BlendBrush<float> brush( Vector3d<float>(1,2,3));
-	brush.move(Vector3d <float>(3, 2, 1));
-	EXPECT_EQ(Vector3d<float>(4, 4, 4), brush.getCenter());
+	using GeomType = std::tuple_element<0, TypeParam>::type;
+	using ValueType = std::tuple_element<1, TypeParam>::type;
+
+	BlendBrush<GeomType, ValueType> brush( Vector3d<GeomType>(1,2,3));
+	brush.move(Vector3d<GeomType>(3, 2, 1));
+	EXPECT_EQ(Vector3d<GeomType>(4, 4, 4), brush.getCenter());
 }
