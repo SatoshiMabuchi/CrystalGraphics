@@ -15,7 +15,10 @@ namespace Crystal {
 	namespace IO {
 
 class XMLHelper {
+public:
 	static tinyxml2::XMLElement* create(tinyxml2::XMLDocument& xml,const std::string& str, const Math::Vector3d<float>& v);
+
+	static Math::Vector3d<float> parse(tinyxml2::XMLElement& elem);
 };
 
 
@@ -25,14 +28,12 @@ public:
 
 	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<float>& volume);
 
-	bool load(const std::string& filename, Math::Volume3d<float>& volume);
+	Math::Volume3d<float>::Attribute load(const std::string& filename);
 
-	bool parse(tinyxml2::XMLDocument& xml, Math::Volume3d<float>& volume);
+	Math::Volume3d<float>::Attribute parse(tinyxml2::XMLDocument& xml);
 
-	//std::vector< std::string > getImageFileNames() const { return imageFileNames; }
 
 private:
-	//std::vector< std::string > imageFileNames;
 
 };
 	}

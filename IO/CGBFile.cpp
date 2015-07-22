@@ -20,6 +20,13 @@ static tinyxml2::XMLElement* create(XMLDocument& xml, const std::string& str, co
 	return e;
 }
 
+Vector3d<float> XMLHelper::parse(tinyxml2::XMLElement& elem)
+{
+	const auto x = elem.FloatAttribute("x");
+	const auto y = elem.FloatAttribute("y");
+	const auto z = elem.FloatAttribute("z");
+	return Vector3d<float>(x, y, z);
+}
 
 
 bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
@@ -54,6 +61,7 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 		XMLElement* e = xml->NewElement("volume");
 
 		e->SetAttribute("type", "unsigned char");
+		e->SetAttribute("format", "png");
 
 		VolumeFile vFile("Folder");
 		for (size_t i = 0; i < volume.getResolutions()[2]; ++i) {
@@ -74,27 +82,34 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 }
 
 
-bool CGBFile::load(const std::string& filename, Volume3d<float>& volume)
+Volume3d< float >::Attribute CGBFile::load(const std::string& filename)
 {
 	std::shared_ptr<XMLDocument> xml = std::make_shared< XMLDocument >();
 	xml->LoadFile(filename.c_str());
-	return parse(*xml, volume);
+	return parse(*xml);
 }
 
-bool CGBFile::parse(tinyxml2::XMLDocument& xml, Volume3d<float>& volume)
+Volume3d<float>::Attribute CGBFile::parse(tinyxml2::XMLDocument& xml)
 {
 	XMLElement* root = xml.FirstChildElement("root");
 
+	Volume3d<float>::Attribute attr;
+
 	{
 		XMLElement* res = root->FirstChildElement(resStr.c_str());
-		Math::Index3d resolution;
-		resolution[0] = res->IntAttribute("x");
-		resolution[1] = res->IntAttribute("y");
-		resolution[2] = res->IntAttribute("z");
+		attr.resx = res->IntAttribute("x");
+		attr.resy = res->IntAttribute("y");
+		attr.resz = res->IntAttribute("z");
 	}
 
+	XMLElement* res = root->FirstChildElement("origin");
+	Vector3d<float> origin = XMLHelper::parse(*res);
 
-	root->FirstChildElement(originStr.c_str());
-	root->FirstChildElement("length");
-	return false;
+	XMLElement* lengthElem = root->FirstChildElement("length");
+	Vector3d<float> length = XMLHelper::parse(*lengthElem);
+
+	Space3d<float> space(origin, length);
+	attr.space = space;
+
+	return attr;
 }
