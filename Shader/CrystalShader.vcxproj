@@ -76,11 +76,7 @@
   <ItemGroup>
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
-    <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
-    <ClCompile Include="SmoothRenderer.cpp" />
-    <ClCompile Include="VolumeRenderer.cpp" />
-    <ClCompile Include="WireframeRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
