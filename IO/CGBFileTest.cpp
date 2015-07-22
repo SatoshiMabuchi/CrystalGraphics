@@ -21,10 +21,10 @@ TEST(ImageFileTest, Test)
 
 TEST(CGBFileTest, TestBuild)
 {
-	CGBFile file;
+	CGBFile<float, unsigned char> file;
 	Space3d<float> space;
-	Grid3d<float> grid(10,20,30);
-	Volume3d<float> v(space, grid);
+	Grid3d<unsigned char> grid(10,20,30);
+	Volume3d<float, unsigned char> v(space, grid);
 	std::shared_ptr< XMLDocument > doc = file.buildXML(v);
 	doc->Print();
 }
@@ -33,6 +33,6 @@ TEST(CGBFileTest, TestParse)
 {
 	XMLDocument doc;
 	doc.LoadFile("./CGBTestFile.cgb");
-	CGBFile file;
+	CGBFile<float, unsigned char> file;
 	file.parse(doc);
 }

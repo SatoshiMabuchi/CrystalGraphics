@@ -28,15 +28,16 @@ Vector3d<float> XMLHelper::parse(tinyxml2::XMLElement& elem)
 	return Vector3d<float>(x, y, z);
 }
 
-
-bool CGBFile::save(const std::string& filename, const Volume3d<float>& volume)
+template<typename GeomType, typename ValueType>
+bool CGBFile<GeomType, ValueType>::save(const std::string& filename, const Volume3d<GeomType, ValueType>& volume)
 {
 	auto xml = buildXML(volume);
 	xml->SaveFile(filename.c_str());
 	return true;//saveImages(directory, filename);
 }
 
-std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
+template<typename GeomType, typename ValueType>
+std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume3d<GeomType, ValueType>& volume)
 {
 	std::shared_ptr<XMLDocument> xml = std::make_shared< XMLDocument >();
 	XMLDeclaration* decl = xml->NewDeclaration();
@@ -78,22 +79,15 @@ std::shared_ptr<XMLDocument> CGBFile::buildXML(const Volume3d<float>& volume)
 	//for (size_t i = 0; i < )
 	
 	return xml;
-
 }
 
 
-Volume3d< float >::Attribute CGBFile::load(const std::string& filename)
-{
-	std::shared_ptr<XMLDocument> xml = std::make_shared< XMLDocument >();
-	xml->LoadFile(filename.c_str());
-	return parse(*xml);
-}
-
-Volume3d<float>::Attribute CGBFile::parse(tinyxml2::XMLDocument& xml)
+template<typename GeomType, typename ValueType>
+Volume3d<float, unsigned char>::Attribute CGBFile<GeomType, ValueType>::parse(tinyxml2::XMLDocument& xml)
 {
 	XMLElement* root = xml.FirstChildElement("root");
 
-	Volume3d<float>::Attribute attr;
+	Volume3d<GeomType, ValueType>::Attribute attr;
 
 	{
 		XMLElement* res = root->FirstChildElement(resStr.c_str());
@@ -123,3 +117,11 @@ Volume3d<float>::Attribute CGBFile::parse(tinyxml2::XMLDocument& xml)
 
 	return attr;
 }
+
+
+
+template bool CGBFile<float,unsigned char>::save(const std::string& filename, const Volume3d<float, unsigned char>& volume);
+
+template std::shared_ptr<tinyxml2::XMLDocument> CGBFile<float, unsigned char>::buildXML(const Volume3d<float, unsigned char>& volume);
+
+template Volume3d<float, unsigned char>::Attribute CGBFile<float, unsigned char>::parse(tinyxml2::XMLDocument& xml);

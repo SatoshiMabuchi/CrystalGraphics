@@ -21,16 +21,14 @@ public:
 	static Math::Vector3d<float> parse(tinyxml2::XMLElement& elem);
 };
 
-
+template< typename GeomType, typename ValueType = float>
 class CGBFile final{
 public:
-	bool save(const std::string& filename, const Math::Volume3d<float>& volume);
+	bool save(const std::string& filename, const Math::Volume3d<GeomType, ValueType>& volume);
 
-	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<float>& volume);
+	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<GeomType, ValueType>& volume);
 
-	Math::Volume3d<float>::Attribute load(const std::string& filename);
-
-	Math::Volume3d<float>::Attribute parse(tinyxml2::XMLDocument& xml);
+	Math::Volume3d<float, unsigned char>::Attribute parse(tinyxml2::XMLDocument& xml);
 
 
 private:
