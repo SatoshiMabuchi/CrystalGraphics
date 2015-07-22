@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <resolution x="2" y="2" z="2"/>
+    <origin x="0" y="0" z="0"/>
+    <length x="0" y="0" z="0"/>
+    <volume type="unsigned char" format="png">
+        <image path="../IO/image0000.png"/>
+        <image path="../IO/image0001.png"/>
+    </volume>
+</root>

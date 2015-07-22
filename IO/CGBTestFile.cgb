@@ -4,7 +4,7 @@
     <origin x="0" y="0" z="0"/>
     <length x="0" y="0" z="0"/>
     <volume type="unsigned char">
-        <image path="Folder\image0000.png"/>
-        <image path="Folder\image0001.png"/>
+        <image path="Folder/image0000.png"/>
+        <image path="Folder/image0001.png"/>
     </volume>
 </root>

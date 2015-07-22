@@ -29,24 +29,17 @@ Vector3d<float> XMLHelper::parse(tinyxml2::XMLElement& elem)
 }
 
 template<typename GeomType, typename ValueType>
-bool CGBFile<GeomType, ValueType>::save(const std::string& filename, const Volume3d<GeomType, ValueType>& volume)
-{
-	auto xml = buildXML(volume);
-	xml->SaveFile(filename.c_str());
-	return true;//saveImages(directory, filename);
-}
-
-template<typename GeomType, typename ValueType>
-std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume3d<GeomType, ValueType>& volume)
-{
-	std::shared_ptr<XMLDocument> xml = std::make_shared< XMLDocument >();
-	XMLDeclaration* decl = xml->NewDeclaration();
-	xml->InsertEndChild(decl);
-	XMLNode* root = xml->NewElement("root");
-	xml->InsertEndChild(root);
+bool CGBFile<GeomType, ValueType>::save(const std::string& directoryname, const std::string& fn, const Volume3d<GeomType, ValueType>& volume)
+{	
+	const std::string& filename = directoryname + fn;
+	XMLDocument xml;
+	XMLDeclaration* decl = xml.NewDeclaration();
+	xml.InsertEndChild(decl);
+	XMLNode* root = xml.NewElement("root");
+	xml.InsertEndChild(root);
 
 	{
-		XMLElement* res = xml->NewElement(resStr.c_str());
+		XMLElement* res = xml.NewElement(resStr.c_str());
 
 		res->SetAttribute("x", volume.getResolutions()[0]);
 		res->SetAttribute("y", volume.getResolutions()[1]);
@@ -55,20 +48,20 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 		root->InsertEndChild(res);
 	}
 
-	root->InsertEndChild( create(*xml, originStr, volume.getStart()) );
-	root->InsertEndChild(create(*xml, "length", volume.getSpace().getLengths()));
+	root->InsertEndChild( create(xml, originStr, volume.getStart()) );
+	root->InsertEndChild( create(xml, "length", volume.getSpace().getLengths()));
 
 	imageFileNames.clear();
 	{
-		XMLElement* e = xml->NewElement("volume");
+		XMLElement* e = xml.NewElement("volume");
 
 		e->SetAttribute("type", "unsigned char");
 		e->SetAttribute("format", "png");
 
-		VolumeFile vFile("Folder");
+		VolumeFile vFile(directoryname);
 		for (size_t i = 0; i < volume.getResolutions()[2]; ++i) {
 			const auto iFile = vFile.toImageFile( "image", i, ImageFile::Type::PNG);
-			XMLElement* elem = xml->NewElement("image");
+			XMLElement* elem = xml.NewElement("image");
 			const auto& str = iFile.getFileNameIncludingPath();
 			elem->SetAttribute("path", str.c_str());
 			e->InsertEndChild(elem);
@@ -80,7 +73,8 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 
 	//for (size_t i = 0; i < )
 	
-	return xml;
+	xml.SaveFile(filename.c_str());
+	return true;
 }
 
 
@@ -124,8 +118,6 @@ Volume3d<float, float>::Attribute CGBFile<float, float>::load(const std::string&
 
 
 
-template bool CGBFile<float, float>::save(const std::string& filename, const Volume3d<float, float>& volume);
-
-template std::shared_ptr<tinyxml2::XMLDocument> CGBFile<float, float>::buildXML(const Volume3d<float, float>& volume);
+template bool CGBFile<float, float>::save(const std::string&, const std::string& filename, const Volume3d<float, float>& volume);
 
 template Volume3d<float, float>::Attribute CGBFile<float, float>::load(const std::string& str);

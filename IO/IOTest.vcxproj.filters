@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CGBTestFile.cgb" />
+    <None Include="CGBTestSaveFile.cgb" />
   </ItemGroup>
 </Project>

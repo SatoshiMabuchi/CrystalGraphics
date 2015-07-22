@@ -22,7 +22,7 @@ public:
 	{}
 
 	std::string getFileNameIncludingPath() const {
-		return folderPath + "\\" + filename + getExtension(type);
+		return folderPath + filename + getExtension(type);
 	}
 
 

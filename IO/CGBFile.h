@@ -24,9 +24,7 @@ public:
 template< typename GeomType, typename ValueType>
 class CGBFile final{
 public:
-	bool save(const std::string& filename, const Math::Volume3d<GeomType, ValueType>& volume);
-
-	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<GeomType, ValueType>& volume);
+	bool save(const std::string& directoryname, const std::string& filename, const Math::Volume3d<GeomType, ValueType>& volume);
 
 	Math::Volume3d<float, float>::Attribute load(const std::string& filename);
 

@@ -12,21 +12,20 @@ using namespace Crystal::IO;
 
 TEST(ImageFileTest, Test)
 {
-	ImageFile file("folder", "file", ImageFile::Type::BMP);
-	const std::string expected = "folder\\file.bmp";
+	ImageFile file("folder/", "file", ImageFile::Type::BMP);
+	const std::string expected = "folder/file.bmp";
 	const auto& actual = file.getFileNameIncludingPath();
 	EXPECT_EQ(expected, actual);
 }
 
 
-TEST(CGBFileTest, TestBuild)
+TEST(CGBFileTest, TestSave)
 {
 	CGBFile<float, float> file;
 	Space3d<float> space;
 	Grid3d<float> grid(2,2,2);
 	Volume3d<float, float> v(space, grid);
-	std::shared_ptr< XMLDocument > doc = file.buildXML(v);
-	doc->Print();
+	file.save("../IO/","CGBTestSaveFile.cgb", v);
 	EXPECT_EQ( 2, file.getImageFileNames().size() );
 }
 
