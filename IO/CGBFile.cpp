@@ -111,5 +111,15 @@ Volume3d<float>::Attribute CGBFile::parse(tinyxml2::XMLDocument& xml)
 	Space3d<float> space(origin, length);
 	attr.space = space;
 
+	XMLElement* volumeElem = root->FirstChildElement("volume");
+	XMLElement* imageElem = volumeElem->FirstChildElement("image");
+
+	imageFileNames.clear();
+	while (imageElem != nullptr) {
+		imageFileNames.push_back(imageElem->Attribute("path"));
+		imageElem = imageElem->NextSiblingElement("image");
+	}
+
+
 	return attr;
 }

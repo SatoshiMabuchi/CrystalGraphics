@@ -10,4 +10,7 @@
     <ClCompile Include="CGBFileTest.cpp" />
     <ClCompile Include="VolumeFileTest.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CGBTestFile.cgb" />
+  </ItemGroup>
 </Project>

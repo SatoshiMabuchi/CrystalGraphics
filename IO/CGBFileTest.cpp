@@ -3,6 +3,7 @@
 #include "CGBFile.h"
 #include <vector>
 #include <string>
+#include <fstream>
 
 
 using namespace tinyxml2;
@@ -26,4 +27,12 @@ TEST(CGBFileTest, TestBuild)
 	Volume3d<float> v(space, grid);
 	std::shared_ptr< XMLDocument > doc = file.buildXML(v);
 	doc->Print();
+}
+
+TEST(CGBFileTest, TestParse)
+{
+	XMLDocument doc;
+	doc.LoadFile("./CGBTestFile.cgb");
+	CGBFile file;
+	file.parse(doc);
 }

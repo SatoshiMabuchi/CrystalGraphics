@@ -34,6 +34,7 @@ public:
 
 
 private:
+	std::vector< std::string > imageFileNames;
 
 };
 	}
