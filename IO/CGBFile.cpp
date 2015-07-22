@@ -81,7 +81,7 @@ bool CGBFile<GeomType, ValueType>::save(const std::string& directoryname, const 
 Volume3d<float, float>::Attribute CGBFile<float, float>::load(const std::string& filename)
 {
 	tinyxml2::XMLDocument xml;
-	xml.LoadFile("../IO/CGBTestFile.cgb");
+	xml.LoadFile(filename.c_str());
 
 	XMLElement* root = xml.FirstChildElement("root");
 
