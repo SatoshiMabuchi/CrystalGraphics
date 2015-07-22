@@ -14,6 +14,7 @@
 namespace Crystal {
 	namespace Shader {
 
+template<typename GeomType, typename ValueType>
 class RendererBase : private UnCopyable
 {
 public:
@@ -23,21 +24,25 @@ public:
 
 	virtual void render(const int width, const int height, const Graphics::Camera<float>& camera) = 0;
 
-	virtual void add(const Graphics::Brush<float>& brush){};
+	virtual void add(const Graphics::Brush<GeomType, ValueType>& brush){};
 
-	virtual void add(const Math::Volume3d<float>& volume){};
+	virtual void add(const Math::Volume3d<GeomType, ValueType>& volume){};
 
-	virtual void add(const Graphics::Surface<float>& surface){};
+	virtual void add(const Graphics::Surface<GeomType>& surface){};
 
 	virtual void build() = 0;
 
 };
 
-using RendererBaseSPtr = std::shared_ptr < RendererBase > ;
-using RendererBaseSPtrVector = std::vector < RendererBaseSPtr > ;
-using RendererBaseSPtrList = std::list < RendererBaseSPtr > ;
+template<typename GeomType, typename ValueType>
+using RendererBaseSPtr = std::shared_ptr < RendererBase<GeomType, ValueType> > ;
+template<typename GeomType, typename ValueType>
+using RendererBaseSPtrVector = std::vector < RendererBaseSPtr<GeomType, ValueType> > ;
+template<typename GeomType, typename ValueType>
+using RendererBaseSPtrList = std::list < RendererBaseSPtr<GeomType, ValueType> >;
 
-class NullRenderer : public RendererBase
+template<typename GeomType, typename ValueType>
+class NullRenderer : public RendererBase<GeomType, ValueType>
 {
 public:
 	NullRenderer() = default;
@@ -46,11 +51,11 @@ public:
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {};
 
-	void add(const Graphics::Brush<float>& brush) override{};
+	void add(const Graphics::Brush<GeomType, ValueType>& brush) override{};
 
-	void add(const Math::Volume3d<float>& volume) override{};
+	void add(const Math::Volume3d<GeomType, ValueType>& volume) override{};
 
-	void add(const Graphics::Surface<float>& surface) override{};
+	void add(const Graphics::Surface<GeomType>& surface) override{};
 
 	void build() override{};
 

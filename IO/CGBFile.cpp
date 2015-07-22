@@ -82,12 +82,11 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 }
 
 
-template<typename GeomType, typename ValueType>
-Volume3d<float, unsigned char>::Attribute CGBFile<GeomType, ValueType>::parse(tinyxml2::XMLDocument& xml)
+Volume3d<float, float>::Attribute CGBFile<float, float>::parse(tinyxml2::XMLDocument& xml)
 {
 	XMLElement* root = xml.FirstChildElement("root");
 
-	Volume3d<GeomType, ValueType>::Attribute attr;
+	Volume3d<float, float>::Attribute attr;
 
 	{
 		XMLElement* res = root->FirstChildElement(resStr.c_str());
@@ -120,8 +119,8 @@ Volume3d<float, unsigned char>::Attribute CGBFile<GeomType, ValueType>::parse(ti
 
 
 
-template bool CGBFile<float,unsigned char>::save(const std::string& filename, const Volume3d<float, unsigned char>& volume);
+template bool CGBFile<float, float>::save(const std::string& filename, const Volume3d<float, float>& volume);
 
-template std::shared_ptr<tinyxml2::XMLDocument> CGBFile<float, unsigned char>::buildXML(const Volume3d<float, unsigned char>& volume);
+template std::shared_ptr<tinyxml2::XMLDocument> CGBFile<float, float>::buildXML(const Volume3d<float, float>& volume);
 
-template Volume3d<float, unsigned char>::Attribute CGBFile<float, unsigned char>::parse(tinyxml2::XMLDocument& xml);
+template Volume3d<float, float>::Attribute CGBFile<float, float>::parse(tinyxml2::XMLDocument& xml);

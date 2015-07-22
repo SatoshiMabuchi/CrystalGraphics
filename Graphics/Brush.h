@@ -7,7 +7,7 @@
 namespace Crystal {
 	namespace Graphics {
 
-template<typename GeomType = float, typename ValueType = float>
+template<typename GeomType, typename ValueType>
 class Brush {
 public:
 	Brush() = default;
@@ -60,7 +60,7 @@ private:
 	Math::Vector3d<GeomType> size;
 };
 
-template<typename GeomType, typename ValueType = float>
+template<typename GeomType, typename ValueType>
 class BlendBrush final : public Brush<GeomType, ValueType>
 {
 public:
@@ -113,7 +113,7 @@ private:
 	ValueType density;
 };
 
-template<typename GeomType, typename ValueType = float>
+template<typename GeomType, typename ValueType>
 class FillBrush final : public Brush < GeomType, ValueType >
 {
 public:
@@ -159,11 +159,11 @@ private:
 	GeomType fillValue;
 };
 
-template<typename T>
-using BrushSPtr = std::shared_ptr < Brush<T> > ;
+template<typename GeomType, typename ValueType>
+using BrushSPtr = std::shared_ptr < Brush<GeomType, ValueType> > ;
 
-template<typename T>
-using BrushSPtrVector = std::vector < BrushSPtr<T> > ;
+template<typename GeomType, typename ValueType>
+using BrushSPtrVector = std::vector < BrushSPtr<GeomType, ValueType> > ;
 
 	}
 }

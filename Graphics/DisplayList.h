@@ -9,6 +9,7 @@
 namespace Crystal {
 	namespace Graphics {
 
+template<typename GeomType, typename ValueType>
 class DisplayList final
 {
 public:
@@ -23,19 +24,19 @@ public:
 		surfaces.insert(surfaces.end(), rhs.surfaces.begin(), rhs.surfaces.end());
 	}
 
-	void add(const Graphics::BrushSPtr<float>& b) {
+	void add(const Graphics::BrushSPtr<GeomType, ValueType>& b) {
 		brushes.push_back(b);
 	}
 
-	void add(const Math::Line3d<float>& l) {
+	void add(const Math::Line3d<GeomType>& l) {
 		lines.push_back(l);
 	}
 
-	void add(const Math::Volume3dSPtr<float, float>& v) {
+	void add(const Math::Volume3dSPtr<GeomType, ValueType>& v) {
 		volumes.push_back(v);
 	}
 
-	void add(const Graphics::SurfaceSPtr<float>& s) {
+	void add(const Graphics::SurfaceSPtr<GeomType>& s) {
 		surfaces.push_back(s);
 	}
 
@@ -46,19 +47,19 @@ public:
 		surfaces.clear();
 	}
 
-	BrushSPtrVector<float> getBrushes() const { return brushes; }
+	BrushSPtrVector<GeomType, ValueType> getBrushes() const { return brushes; }
 
-	Math::Line3dVector<float> getLines() const { return lines; }
+	Math::Line3dVector<GeomType> getLines() const { return lines; }
 
-	Math::Volume3dSPtrList<float, float> getVolumes() const { return volumes; }
+	Math::Volume3dSPtrList<GeomType, ValueType> getVolumes() const { return volumes; }
 
-	Graphics::SurfaceSPtrList<float> getSurfaces() const { return surfaces; }
+	Graphics::SurfaceSPtrList<GeomType> getSurfaces() const { return surfaces; }
 
 private:
-	BrushSPtrVector<float> brushes;
-	Math::Line3dVector<float> lines;
-	Math::Volume3dSPtrList<float, float> volumes;
-	Graphics::SurfaceSPtrList<float> surfaces;
+	BrushSPtrVector<GeomType, ValueType> brushes;
+	Math::Line3dVector<GeomType> lines;
+	Math::Volume3dSPtrList<GeomType, ValueType> volumes;
+	Graphics::SurfaceSPtrList<GeomType> surfaces;
 };
 	}
 }
