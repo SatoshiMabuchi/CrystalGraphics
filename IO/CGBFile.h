@@ -28,8 +28,9 @@ public:
 
 	std::shared_ptr<tinyxml2::XMLDocument> buildXML(const Math::Volume3d<GeomType, ValueType>& volume);
 
-	Math::Volume3d<float, float>::Attribute parse(tinyxml2::XMLDocument& xml);
+	Math::Volume3d<float, float>::Attribute load(const std::string& filename);
 
+	std::vector< std::string > getImageFileNames() const { return imageFileNames; }
 
 private:
 	std::vector< std::string > imageFileNames;

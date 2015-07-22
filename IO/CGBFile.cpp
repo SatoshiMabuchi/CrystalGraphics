@@ -58,6 +58,7 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 	root->InsertEndChild( create(*xml, originStr, volume.getStart()) );
 	root->InsertEndChild(create(*xml, "length", volume.getSpace().getLengths()));
 
+	imageFileNames.clear();
 	{
 		XMLElement* e = xml->NewElement("volume");
 
@@ -71,6 +72,7 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 			const auto& str = iFile.getFileNameIncludingPath();
 			elem->SetAttribute("path", str.c_str());
 			e->InsertEndChild(elem);
+			imageFileNames.push_back(str);
 		}
 
 		root->InsertEndChild(e);
@@ -82,8 +84,11 @@ std::shared_ptr<XMLDocument> CGBFile<GeomType, ValueType>::buildXML(const Volume
 }
 
 
-Volume3d<float, float>::Attribute CGBFile<float, float>::parse(tinyxml2::XMLDocument& xml)
+Volume3d<float, float>::Attribute CGBFile<float, float>::load(const std::string& filename)
 {
+	tinyxml2::XMLDocument xml;
+	xml.LoadFile("../IO/CGBTestFile.cgb");
+
 	XMLElement* root = xml.FirstChildElement("root");
 
 	Volume3d<float, float>::Attribute attr;
@@ -123,4 +128,4 @@ template bool CGBFile<float, float>::save(const std::string& filename, const Vol
 
 template std::shared_ptr<tinyxml2::XMLDocument> CGBFile<float, float>::buildXML(const Volume3d<float, float>& volume);
 
-template Volume3d<float, float>::Attribute CGBFile<float, float>::parse(tinyxml2::XMLDocument& xml);
+template Volume3d<float, float>::Attribute CGBFile<float, float>::load(const std::string& str);

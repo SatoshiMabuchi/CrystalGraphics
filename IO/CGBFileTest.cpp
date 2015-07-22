@@ -23,16 +23,17 @@ TEST(CGBFileTest, TestBuild)
 {
 	CGBFile<float, float> file;
 	Space3d<float> space;
-	Grid3d<float> grid(10,20,30);
+	Grid3d<float> grid(2,2,2);
 	Volume3d<float, float> v(space, grid);
 	std::shared_ptr< XMLDocument > doc = file.buildXML(v);
 	doc->Print();
+	EXPECT_EQ( 2, file.getImageFileNames().size() );
 }
 
-TEST(CGBFileTest, TestParse)
+TEST(CGBFileTest, TestLoad)
 {
-	XMLDocument doc;
-	doc.LoadFile("../IO/CGBTestFile.cgb");
 	CGBFile<float, float> file;
-	file.parse(doc);
+	file.load("../IO/CGBTestFile.cgb");
+	EXPECT_EQ(2, file.getImageFileNames().size());
+
 }
