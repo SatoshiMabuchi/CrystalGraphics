@@ -5,7 +5,6 @@
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
-#include "../Math/Cylinder.h"
 
 #include "../Util/UnCopyable.h"
 
@@ -55,21 +54,6 @@ public:
 		return create(positions);
 	}
 
-	ParticleSPtrVector create(const Math::Cylinder<T>& cylinder) {
-		const Math::Box<float>& box = cylinder.getBoundingBox();
-		Math::Vector3dVector<float> positions;
-		for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
-			for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
-				for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
-					const Math::Vector3d<float> v(x, y, z);
-					if (cylinder.isInner(v)) {
-						positions.push_back(v);
-					}
-				}
-			}
-		}
-		return create(positions);
-	}
 
 	ParticleSPtrVector create(const Math::Vector3dVector<T>& positions) {
 		ParticleSPtrVector particles;
