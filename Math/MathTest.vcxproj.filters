@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
-    <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
@@ -41,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
-    <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Sphere.h" />
     <ClInclude Include="..\Math\Tolerance.h" />

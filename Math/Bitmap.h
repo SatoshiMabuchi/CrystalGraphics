@@ -42,9 +42,7 @@ public:
 		}
 	}
 
-	int getCount() const {
-		return std::count(bits.begin(), bits.end(), true);
-	}
+	int getCount() const { return std::count(bits.begin(), bits.end(), true); }
 
 	bool operator[](const size_t i) const { return bits[i]; }
 
@@ -86,13 +84,9 @@ public:
 
 	bool isNone() const { return getCount() == 0; }
 
-	bool operator==(const Bitmap1d& rhs) const {
-		return bits == rhs.bits;
-	}
+	bool operator==(const Bitmap1d& rhs) const { return bits == rhs.bits; }
 
-	bool operator!=(const Bitmap1d& rhs) const {
-		return bits != rhs.bits;
-	}
+	bool operator!=(const Bitmap1d& rhs) const { return bits != rhs.bits; }
 
 	Bitmap1d& operator=(const Bitmap1d& rhs) {
 		bits = rhs.bits;
@@ -128,8 +122,7 @@ public:
 
 
 private:
-	//std::bitset<SIZE> bits;
-	std::vector<bool> bits;	// not best practice. see Effective STL.
+	std::vector<bool> bits;
 
 };
 
@@ -156,6 +149,8 @@ public:
 			bm.setAll(b);
 		}
 	}
+
+	~Bitmap2d() = default;
 
 	static Bitmap2d TRUE(const size_t sizex, const size_t sizey) {
 		return Bitmap2d(sizex, sizey, true);
@@ -190,10 +185,7 @@ public:
 		return bmps[y];
 	}
 
-	Bitmap2d& set(const size_t x, const size_t y, const bool b = true) {
-		bmps[y].set(x, b);
-		return (*this);
-	}
+	void set(const size_t x, const size_t y, const bool b = true) { bmps[y].set(x, b); }
 
 	Bitmap2d& and(const Bitmap2d& rhs) {
 		for (size_t i = 0; i < bmps.size(); ++i) {
@@ -285,6 +277,8 @@ public:
 		bmps(zSize, Bitmap2d(xSize, ySize, b))
 	{
 	}
+
+	~Bitmap3d() = default;
 
 	static Bitmap3d TRUE(const size_t sizex, const size_t sizey, const size_t sizez) {
 		return Bitmap3d(sizex, sizey, sizez, true);
@@ -388,15 +382,14 @@ public:
 
 	std::bitset<8> to8Bit(const size_t i, const size_t j, const size_t k) const {
 		std::bitset<8> b;
-		if (get(i,j,k))		{ b.set(0); }
-		if (get(i+1,j,k))	{ b.set(1); }
-		if (get(i+1,j+1,k))	{ b.set(2); }
-		if (get(i,j+1,k))	{ b.set(3); }
-		if (get(i,j,k+1))	{ b.set(4); }
-		if (get(i+1,j,k+1))	{ b.set(5); }
-		if (get(i+1,j+1,k+1)){ b.set(6); }
-		if (get(i,j+1,k+1))	{ b.set(7); }
-
+		if(get(  i,  j,  k))	{ b.set(0); }
+		if(get(i+1,  j,  k))	{ b.set(1); }
+		if(get(i+1,j+1,  k))	{ b.set(2); }
+		if(get(  i,j+1,  k))	{ b.set(3); }
+		if(get(  i,  j,k+1))	{ b.set(4); }
+		if(get(i+1,  j,k+1))	{ b.set(5); }
+		if(get(i+1,j+1,k+1))	{ b.set(6); }
+		if(get(  i,j+1,k+1))	{ b.set(7); }
 		return b;
 	}
 

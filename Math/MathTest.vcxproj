@@ -15,7 +15,6 @@
     <ClCompile Include="BitMarchingCubeTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
-    <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="GridSpaseBaseTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
@@ -37,7 +36,6 @@
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Box.h" />
-    <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\GridSpaceBase.h" />
     <ClInclude Include="..\Math\Kernel.h" />

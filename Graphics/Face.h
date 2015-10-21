@@ -25,8 +25,6 @@ public:
 		this->edges = edges;
 	}
 
-	//bool isPoint() const { return edges.empty(); }
-
 	bool isLine() const { return edges.size() == 1; }
 
 	HalfEdgeSPtrList<T> getEdges() const { return edges; }

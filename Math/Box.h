@@ -3,10 +3,6 @@
 
 #include "Vector.h"
 
-#include <vector>
-#include <string>
-#include <algorithm>
-
 namespace Crystal{
 	namespace Math{
 

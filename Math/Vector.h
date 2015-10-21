@@ -17,7 +17,7 @@ public:
 	Vector3d(void) : Vector3d(0, 0, 0)
 	{}
 
-	Vector3d(T x, T y, T z) :
+	Vector3d(const T x, const T y, const T z) :
 		x(x), y(y), z(z)
 	{}
 
@@ -93,25 +93,15 @@ public:
 		return Tolerance<T>::isEqualLoosely( getDistanceSquared( rhs ) );
 	}
 
-	bool isZero() const {
-		return equals( Zero() );
-	}
+	bool isZero() const { return equals( Zero() ); }
 
-	bool operator==( const Vector3d& rhs ) const {
-		return equals( rhs );
-	}
+	bool operator==( const Vector3d& rhs ) const { return equals( rhs ); }
 
-	bool operator!=(const Vector3d& rhs) const {
-		return !equals( rhs );
-	}
+	bool operator!=(const Vector3d& rhs) const { return !equals( rhs ); }
 
-	Vector3d operator+(const Vector3d& rhs) const {
-		return Vector3d( x + rhs.x, y + rhs.y, z + rhs.z );
-	}
+	Vector3d operator+(const Vector3d& rhs) const { return Vector3d( x + rhs.x, y + rhs.y, z + rhs.z ); }
 
-	Vector3d operator-(const Vector3d& rhs) const {
-		return Vector3d( x - rhs.x, y - rhs.y, z - rhs.z );
-	}
+	Vector3d operator-(const Vector3d& rhs) const { return Vector3d( x - rhs.x, y - rhs.y, z - rhs.z ); }
 
 	Vector3d operator+=( const Vector3d& rhs ) {
 		x += rhs.x;
@@ -127,9 +117,7 @@ public:
 		return *this;
 	}
 
-	Vector3d operator-() const {
-		return Vector3d(-x, -y, -z);
-	}
+	Vector3d operator-() const { return Vector3d(-x, -y, -z); }
 
 	Vector3d operator*(const float factor) const {
 		Vector3d vector(*this);
@@ -167,9 +155,7 @@ public:
 		return Vector3d(nx, ny, nz);
 	}
 	
-	const Vector3d operator*( const Matrix3d<T>& rhs ) const {
-		return getMult(rhs);
-	}
+	const Vector3d operator*( const Matrix3d<T>& rhs ) const { return getMult(rhs); }
 
 
 public:
