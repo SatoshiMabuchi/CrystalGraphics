@@ -18,7 +18,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shader", "Shader\CrystalSha
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActorTest", "ActorTest\ActorTest.vcxproj", "{C77522FD-0991-4572-B4A5-B68219613BE9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ActorTest", "Actor\ActorTest.vcxproj", "{C77522FD-0991-4572-B4A5-B68219613BE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
