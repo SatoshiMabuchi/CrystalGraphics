@@ -30,17 +30,13 @@ public:
 
 	T get(const size_t i) const { return values[i]; }
 
-	Grid1d& set(const size_t i, const T v) {
-		this->values[i] = v;
-		return (*this);
-	}
+	void set(const size_t i, const T v) { values[i] = v; }
 
-	Grid1d& set(const unsigned int start, const Grid1d& rhs) {
+	void set(const unsigned int start, const Grid1d& rhs) {
 		for (size_t x = 0; x < rhs.getSize(); ++x) {
 			const T v = rhs.get(x);
 			set(x + start, v);
 		}
-		return (*this);
 	}
 
 	Grid1d getSub(const size_t startIndex, const size_t endIndex) const {
@@ -60,19 +56,8 @@ public:
 		return !equals(rhs);
 	}
 
-	/*
-	static T getMax() { return 1; }
-
-	static T getMin() { return -1; }
-	*/
 private:
 	std::vector< T > values;
-
-	/*
-	T clamp(const T v) {
-		return std::min<T>(getMax(), std::max<T>(getMin(), v));
-	}
-	*/
 };
 
 template<typename T>
@@ -111,14 +96,13 @@ public:
 		return Grid2d(gs);
 	}
 
-	Grid2d& set(const std::array<unsigned int, 2>& start, const Grid2d& rhs) {
+	void set(const std::array<unsigned int, 2>& start, const Grid2d& rhs) {
 		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
 			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
 				const T v = rhs.get(x, y);
 				set(x + start[0], y + start[1], v);
 			}
 		}
-		return (*this);
 	}
 
 

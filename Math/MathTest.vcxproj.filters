@@ -59,7 +59,6 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
-    <ClInclude Include="Parameter.h" />
     <ClInclude Include="..\Math\MarchingCube.h">
       <Filter>MarchingCube</Filter>
     </ClInclude>

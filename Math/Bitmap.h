@@ -408,7 +408,7 @@ public:
 		return Bitmap3d(bs);
 	}
 
-	Bitmap3d& set(const std::array<unsigned int, 3>& start, const Bitmap3d& rhs) {
+	void set(const std::array<unsigned int, 3>& start, const Bitmap3d& rhs) {
 		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
 			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
 				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
@@ -417,7 +417,6 @@ public:
 				}
 			}
 		}
-		return (*this);
 	}
 
 private:

@@ -41,12 +41,6 @@ public:
 		return !equals(rhs);
 	}
 
-	/*
-	Math::Vector3d<GeomType> getPosition() const { return pos; }
-
-	ValueType getValue() const { return value; }
-	*/
-
 private:
 	Math::Vector3d<GeomType> pos;
 	ValueType value;

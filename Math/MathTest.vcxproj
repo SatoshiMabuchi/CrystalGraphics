@@ -57,7 +57,6 @@
     <ClInclude Include="Density.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="MarchingCubeTable.h" />
-    <ClInclude Include="Parameter.h" />
     <ClInclude Include="PositionValue.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="Volume.h" />
@@ -107,6 +106,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\gtest-1.7.0\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +126,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\gtest-1.7.0\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

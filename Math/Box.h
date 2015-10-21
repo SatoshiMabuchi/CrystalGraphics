@@ -15,7 +15,7 @@ class Box final
 {
 public:
 	
-	Box() : Box(Vector3d<T>(0.0f, 0.0f, 0.0f), Vector3d<T>(1.0f, 1.0f, 1.0f))
+	Box() : Box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1))
 	{
 	}
 
@@ -31,6 +31,8 @@ public:
 
 		assert(isValid());
 	}
+
+	~Box() = default;
 
 	static Box Unit() {
 		return Box();
@@ -63,27 +65,19 @@ public:
 		return (maxX - getMinX()) * (maxY - getMinY()) * (maxZ - getMinZ());
 	}
 	
-	Vector3d<T> getMax() const {
-		return Vector3d<T>(maxX, maxY, maxZ);
-	}
+	Vector3d<T> getMax() const { return Vector3d<T>(maxX, maxY, maxZ); }
 	
-	Vector3d<T> getMin() const {
-		return Vector3d<T>(getMinX(), getMinY(), getMinZ());
-	}
+	Vector3d<T> getMin() const { return Vector3d<T>(getMinX(), getMinY(), getMinZ()); }
 
-	Vector3d<T> getStart() const {
-		return getMin();
-	}
+	Vector3d<T> getStart() const { return getMin(); }
 
-	Vector3d<T> getEnd() const {
-		return getMax();
-	}
+	Vector3d<T> getEnd() const { return getMax(); }
 
 	Vector3d<T> getCenter() const {
 		return Vector3d<T>(
-			(getMinX() + maxX) * 0.5f,
-			(getMinY() + maxY) * 0.5f,
-			(getMinZ() + maxZ) * 0.5f
+			(getMinX() + maxX) / T{ 2 },
+			(getMinY() + maxY) / T{ 2 },
+			(getMinZ() + maxZ) / T{ 2 }
 			);
 	}
 

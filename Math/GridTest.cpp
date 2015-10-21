@@ -7,7 +7,8 @@ using namespace Crystal::Math;
 TEST(Grid1dTest, TestGetSize)
 {
 	using T = float;
-	EXPECT_EQ(2, Grid1d<T>(2, 0).getSize());
+	EXPECT_EQ( 2, Grid1d<T>( 2).getSize());
+	EXPECT_EQ(10, Grid1d<T>(10).getSize());
 }
 
 TEST(Grid1dTest, TestGet)
@@ -19,15 +20,15 @@ TEST(Grid1dTest, TestGet)
 TEST(Grid1dTest, TestSet)
 {
 	using T = float;
-	Grid1d<T> lhs(2, 10);
-	lhs.set(1, Grid1d<T>(1, 20));
-	EXPECT_EQ(20, lhs.get(1));
+	Grid1d<T> grid(2, 10);
+	grid.set(1, Grid1d<T>(1, 20));
+	EXPECT_EQ(20, grid.get(1));
 }
 
 TEST(Grid1dTest, TestGetSub)
 {
 	using T = float;
-	EXPECT_EQ(Grid1d<T>(1, 0), Grid1d<T>(2, 0).getSub(0, 1));
+	EXPECT_EQ(Grid1d<T>(1,   0), Grid1d<T>(2,   0).getSub(0, 1));
 	EXPECT_EQ(Grid1d<T>(2, 100), Grid1d<T>(5, 100).getSub(0, 2));
 
 }
@@ -130,7 +131,7 @@ TEST(Grid3dTest, TestIsAllLower)
 	Grid3d<T> grid(2, 2, 2);
 	const T threshold = 5;
 
-	EXPECT_TRUE(grid.isAllLower(0, 0, 0, threshold));
+	EXPECT_TRUE(  grid.isAllLower(0, 0, 0, threshold) );
 	grid.set(0, 0, 0, 10);
 	EXPECT_FALSE( grid.isAllLower(0, 0, 0, threshold) );
 }
@@ -152,19 +153,7 @@ TEST(Grid3dTest, TestIsBoundary)
 	Grid3d<T> grid(2, 2, 2);
 	const T threshold = 5;
 
-	EXPECT_FALSE(grid.isBoundary(0, 0, 0, threshold));
+	EXPECT_FALSE( grid.isBoundary(0, 0, 0, threshold) );
 	grid.set(0, 0, 0, 10);
-	EXPECT_TRUE(grid.isBoundary(0, 0, 0, threshold));
+	EXPECT_TRUE(  grid.isBoundary(0, 0, 0, threshold) );
 }
-
-
-/*
-TEST(Grid3dTest, TestIsBoundary)
-{
-	using T = float;
-	Grid3d<T> grid(2, 2, 2);
-	grid.set(0, 0, 0, 10);
-	const T threshold = 5;
-	grid.
-}
-*/

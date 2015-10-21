@@ -422,8 +422,8 @@ TEST(Bitmap3dTest, TestSetBitmap)
 	Bitmap3d lhs(2, 2, 2, false);
 	Bitmap3d rhs(1, 1, 1, true);
 	const std::array< unsigned int, 3 > start{ 1, 1, 1 };
-	Bitmap3d actual = lhs.set(start, rhs);
-	EXPECT_EQ(1, actual.getCount());
+	lhs.set(start, rhs);
+	EXPECT_EQ(1, lhs.getCount());
 }
 
 

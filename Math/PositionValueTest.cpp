@@ -15,7 +15,6 @@ using TestTypes = ::testing::Types <
 
 TYPED_TEST_CASE(PositionValueTest, TestTypes);
 
-
 TYPED_TEST(PositionValueTest, TestInterpolate)
 {
 	using GeomType = std::tuple_element<0, TypeParam>::type;

@@ -127,7 +127,7 @@ public:
 		return *this;
 	}
 
-	Vector3d operator-() {
+	Vector3d operator-() const {
 		return Vector3d(-x, -y, -z);
 	}
 
@@ -161,12 +161,10 @@ public:
 	}
 
 	Vector3d getMult(const Matrix3d<T>& matrix) const {
-		return Vector3d
-			(
-			x * matrix.getX00() + y * matrix.getX10() + z * matrix.getX20(),
-			x * matrix.getX01() + y * matrix.getX11() + z * matrix.getX21(),
-			x * matrix.getX02() + y * matrix.getX12() + z * matrix.getX22()
-			);
+		const auto nx = x * matrix.getX00() + y * matrix.getX10() + z * matrix.getX20();
+		const auto ny = x * matrix.getX01() + y * matrix.getX11() + z * matrix.getX21();
+		const auto nz = x * matrix.getX02() + y * matrix.getX12() + z * matrix.getX22();
+		return Vector3d(nx, ny, nz);
 	}
 	
 	const Vector3d operator*( const Matrix3d<T>& rhs ) const {
@@ -225,7 +223,5 @@ static Vector3d<T> operator/( float factor, const Vector3d<T>& rhs ) { return rh
 
 	}
 }
-
-
 
 #endif
