@@ -17,7 +17,6 @@
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
-    <ClCompile Include="DensityTest.cpp" />
     <ClCompile Include="GridSpaseBaseTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
@@ -54,7 +53,6 @@
     <ClInclude Include="..\Math\Triangle.h" />
     <ClInclude Include="..\Math\Vector.h" />
     <ClInclude Include="BitMarchingCube.h" />
-    <ClInclude Include="Density.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="PositionValue.h" />

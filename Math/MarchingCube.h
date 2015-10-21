@@ -4,10 +4,8 @@
 
 #include "Triangle.h"
 #include "Vector.h"
-#include "Space.h"
 #include "../Util/UnCopyable.h"
 #include "MarchingCubeTable.h"
-#include <bitset>
 #include <vector>
 #include <array>
 #include "Volume.h"
@@ -79,7 +77,6 @@ private:
 
 	std::array< Vector3d<GeomType>, 12 > getPositions(const int cubeindex, const VolumeCell3d<GeomType,ValueType>& cell, const ValueType isolevel) const {
 		std::array< Vector3d<GeomType>, 12 > vertices;
-		//const PositionValue
 		const auto& pvs = cell.toPositionValues();
 		const auto& edgeTable = table.getEdgeTable();
 		if (edgeTable[cubeindex][0]) {

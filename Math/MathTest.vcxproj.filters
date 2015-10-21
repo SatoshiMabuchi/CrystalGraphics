@@ -15,7 +15,6 @@
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
-    <ClCompile Include="DensityTest.cpp" />
     <ClCompile Include="RangeTest.cpp" />
     <ClCompile Include="MarchingCubeTableTest.cpp">
       <Filter>MarchingCube</Filter>
@@ -57,7 +56,6 @@
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Kernel.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="Density.h" />
     <ClInclude Include="Range.h" />
     <ClInclude Include="..\Math\MarchingCube.h">
       <Filter>MarchingCube</Filter>

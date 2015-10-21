@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_MATRIX_3D_H__
-#define __CRYSTAL_MATH_MATRIX_3D_H__
+#ifndef __CRYSTAL_MATH_MATRIX_H__
+#define __CRYSTAL_MATH_MATRIX_H__
 
 #include "Tolerance.h"
 
@@ -10,16 +10,16 @@
 namespace Crystal {
 	namespace Math {
 
-template< typename T, size_t DIM >
-class Matrix
+template< typename T >
+class Matrix2d
 {
 public:
-	Matrix(void) :
-		Matrix(1, 0, 0, 1)
+	Matrix2d(void) :
+		Matrix2d(1, 0, 0, 1)
 	{
 	}
 
-	Matrix(
+	Matrix2d(
 		const T x00, const T x01,
 		const T x10, const T x11
 		)
@@ -31,8 +31,7 @@ public:
 
 	}
 
-	~Matrix()
-	{};
+	~Matrix2d() = default;
 
 	void setIdentity() {
 		x[0][0] = 1;
@@ -48,22 +47,22 @@ public:
 		x[1][1] = ::cos(angle);
 	}
 
-	static Matrix Identity() {
-		return Matrix(1, 0, 0, 1);
+	static Matrix2d Identity() {
+		return Matrix2d(1, 0, 0, 1);
 	}
 
-	static Matrix<T, DIM> Zero() {
-		return Matrix(0, 0, 0, 0);
+	static Matrix2d<T> Zero() {
+		return Matrix2d(0, 0, 0, 0);
 	}
 
-	static Matrix Rotate(const T angle)
+	static Matrix2d Rotate(const T angle)
 	{
-		Matrix matrix;
+		Matrix2d matrix;
 		matrix.setRotate(angle);
 		return matrix;
 	}
 
-	bool equals(const Matrix& rhs) const {
+	bool equals(const Matrix2d& rhs) const {
 		return
 			Tolerance<T>::isEqualStrictly(x[0][0], rhs.x[0][0]) &&
 			Tolerance<T>::isEqualStrictly(x[0][1], rhs.x[0][1]) &&
@@ -80,25 +79,25 @@ public:
 		return !Tolerance<T>::isEqualStrictly(denominator, 0.0);
 	}
 
-	Matrix getInverse() const {
+	Matrix2d getInverse() const {
 		assert(hasInverse());
 		const T denominator = getDeterminant();
 		//assert( !Tolerancef::isEqualStrictly( denominator ) );
 
-		const T xx00 = x[1][1] / denominator;
+		const T xx00 =  x[1][1] / denominator;
 		const T xx01 = -x[0][1] / denominator;
 		const T xx10 = -x[1][0] / denominator;
-		const T xx11 = x[0][0] / denominator;
+		const T xx11 =  x[0][0] / denominator;
 
-		return Matrix(xx00, xx01, xx10, xx11);
+		return Matrix2d(xx00, xx01, xx10, xx11);
 	}
 
-	Matrix<T, DIM> product(const Matrix& rhs) {
+	Matrix2d product(const Matrix2d& rhs) {
 		return *this = getProduct(rhs);
 	}
 
-	Matrix<T, DIM> getProduct(const Matrix& rhs) const {
-		return Matrix
+	Matrix2d getProduct(const Matrix2d& rhs) const {
+		return Matrix2d
 			(
 			getX00() * rhs.getX00() + getX01() * rhs.getX10(),
 			getX00() * rhs.getX01() + getX01() * rhs.getX11(),
@@ -107,7 +106,7 @@ public:
 			);
 	}
 
-	Matrix scale(const T factor) {
+	Matrix2d scale(const T factor) {
 		for (auto i = 0; i < 2; ++i) {
 			for (auto j = 0; j < 2; ++j) {
 				x[i][j] *= factor;
@@ -116,54 +115,54 @@ public:
 		return *this;
 	}
 
-	Matrix getScaled(const T factor) const {
-		Matrix matrix = *this;
+	Matrix2d getScaled(const T factor) const {
+		Matrix2d matrix = *this;
 		return matrix.scale(factor);
 	}
 
-	Matrix add(const Matrix& rhs) {
-		for (auto i = 0; i < DIM; ++i) {
-			for (auto j = 0; j < DIM; ++j) {
-				x[i][j] += factor;
+	Matrix2d add(const Matrix2d& rhs) {
+		for (auto i = 0; i < 2; ++i) {
+			for (auto j = 0; j < 2; ++j) {
+				x[i][j] += rhs[i][j];
 			}
 		}
 		return *this;
 	}
 
-	Matrix getAdd(const Matrix& rhs) const {
-		Matrix matrix = *this;
+	Matrix2d getAdd(const Matrix2d& rhs) const {
+		Matrix2d matrix = *this;
 		return matrix.add(rhs);
 	}
 
-	bool operator==(const Matrix& rhs) const {
+	bool operator==(const Matrix2d& rhs) const {
 		return equals(rhs);
 	}
 
-	bool operator!=(const Matrix& rhs) const {
+	bool operator!=(const Matrix2d& rhs) const {
 		return !equals(rhs);
 	}
 
-	Matrix operator+(const Matrix& rhs) const {
+	Matrix2d operator+(const Matrix2d& rhs) const {
 		return getAdd(rhs);
 	}
 
-	const Matrix operator+=(const Matrix& rhs) {
+	const Matrix2d operator+=(const Matrix2d& rhs) {
 		return add(rhs);
 	}
 
-	Matrix operator-(const Matrix& rhs) const {
+	Matrix2d operator-(const Matrix2d& rhs) const {
 		return getAdd(rhs.getScaled(-1.0));
 	}
 
-	const Matrix operator-=(const Matrix& rhs) {
+	const Matrix2d operator-=(const Matrix2d& rhs) {
 		return add(rhs.getScaled(-1.0));
 	}
 
-	Matrix operator*(const Matrix& rhs) const {
+	Matrix2d operator*(const Matrix2d& rhs) const {
 		return getProduct(rhs);
 	}
 
-	const Matrix operator*=(const Matrix& rhs) {
+	const Matrix2d operator*=(const Matrix2d& rhs) {
 		return product(rhs);
 	}
 
@@ -183,13 +182,9 @@ public:
 	}
 
 private:
-	//T x00, x01;
-	//T x10, x11;
-	std::array<  std::array< T, DIM >, DIM > x;
-};
 
-template<typename T>
-using Matrix2d = Matrix < T, 2 >;
+	std::array<  std::array< T, 2 >, 2 > x;
+};
 
 
 template<typename T>
@@ -197,9 +192,9 @@ class Matrix3d final
 {
 public:
 	Matrix3d(void) :
-		x00( 1.0), x01( 0.0), x02( 0.0),
-		x10( 0.0), x11( 1.0), x12( 0.0),
-		x20( 0.0), x21( 0.0), x22( 1.0)
+		x00( 1), x01( 0), x02( 0),
+		x10( 0), x11( 1), x12( 0),
+		x20( 0), x21( 0), x22( 1)
 	{}
 	
 	Matrix3d(
@@ -223,32 +218,16 @@ public:
 
 	void setRotateZ(const T angle) { *this = RotateZ(angle); }
 
-	static Matrix3d Identity() {
-		return Matrix3d(
-			1.0f, 0.0f, 0.0f,
-			0.0f, 1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f );
-	}
+	static Matrix3d Identity() { return Matrix3d( 1, 0, 0, 0, 1, 0, 0, 0, 1 ); }
 
-	static Matrix3d Zero() {
-		return Matrix3d(
-			0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f);
-	}
+	static Matrix3d Zero() { return Matrix3d( 0, 0, 0, 0, 0, 0, 0, 0, 0); }
 
-	static Matrix3d RotateX( const T angle ) {
-		return Matrix3d(
-			1.0f, 0.0f, 0.0f,
-			0.0f, ::cos(angle), -::sin(angle),
-			0.0f, ::sin(angle), ::cos(angle));
-	}
+	static Matrix3d RotateX( const T angle ) { return Matrix3d( 1, 0, 0, 0, ::cos(angle), -::sin(angle), 0, ::sin(angle), ::cos(angle)); }
 
 	static Matrix3d RotateY( const T angle ) {
 		return Matrix3d
 			(
-			::cos(angle), 0.0f,::sin(angle),
-			0.0f, 1.0f, 0.0f,
+			::cos(angle), 0,::sin(angle), 0, 1, 0,
 			-::sin(angle), 0.0f, ::cos(angle)
 			);
 	}
@@ -262,15 +241,9 @@ public:
 			);
 	}
 
-	bool isZero() const { return this->equals(Matrix3d::Zero()); }
+	bool isZero() const { return equals(Zero()); }
 	
-	bool isIdentity() const {
-		Matrix3d identityMatrix(
-			1.0, 0.0, 0.0,
-			0.0, 1.0, 0.0,
-			0.0, 0.0, 1.0);
-		return this->equals(identityMatrix);
-	}
+	bool isIdentity() const { return equals(Identity()); }
 
 	bool equals( const Matrix3d& rhs ) const {
 		return
@@ -372,9 +345,9 @@ public:
 
 	const Matrix3d operator+=(const Matrix3d& rhs) { return add(rhs); }
 
-	Matrix3d operator-(const Matrix3d& rhs) const { return getAdd(rhs.getScaled(-1.0)); }
+	Matrix3d operator-(const Matrix3d& rhs) const { return getAdd(rhs.getScaled(-1)); }
 	
-	const Matrix3d operator-=(const Matrix3d& rhs) { return add(rhs.getScaled(-1.0)); }
+	const Matrix3d operator-=(const Matrix3d& rhs) { return add(rhs.getScaled(-1)); }
 	
 	Matrix3d operator*(const Matrix3d& rhs) const { return getProduct(rhs); }
 	
@@ -461,10 +434,10 @@ public:
 	static Matrix4d Zero() {
 		return Matrix4d
 			(
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f,
-			0.0f, 0.0f, 0.0f, 0.0f
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0
 			);
 	}
 
@@ -481,10 +454,10 @@ public:
 	static Matrix4d RotateX(const T angle) {
 		return Matrix4d
 			(
-			1.0, 0.0, 0.0, 0.0,
-			0.0, ::cos(angle), ::sin(angle), 0.0,
-			0.0, -::sin(angle), ::cos(angle), 0.0,
-			0.0, 0.0, 0.0, 1.0
+			1, 0, 0, 0,
+			0, ::cos(angle), ::sin(angle), 0,
+			0, -::sin(angle), ::cos(angle), 0,
+			0, 0, 0, 1
 			);
 	}
 
@@ -501,10 +474,10 @@ public:
 	static Matrix4d RotateZ(const T angle) {
 		return Matrix4d
 			(
-			::cos(angle), ::sin(angle), 0.0, 0.0,
-			-::sin(angle), ::cos(angle), 0.0, 0.0,
-			0.0, 0.0, 1.0, 0.0,
-			0.0, 0.0, 0.0, 1.0
+			::cos(angle), ::sin(angle), 0, 0,
+			-::sin(angle), ::cos(angle), 0, 0,
+			0, 0, 1, 0,
+			0, 0, 0, 1
 			);
 	}
 

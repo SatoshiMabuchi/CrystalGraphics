@@ -269,7 +269,7 @@ TYPED_TEST(Matrix4dTest, toArraysTest)
 	using T = TypeParam;
 
 	const Matrix4d<T>& m = Matrix4d<T>::Identity();
-	std::vector< T > x = m.toArray4x4();
+	const auto& x = m.toArray();
 	EXPECT_EQ(x[0], 1.0f);
 	EXPECT_EQ(x[1], 0.0f);
 	EXPECT_EQ(x[2], 0.0f);
