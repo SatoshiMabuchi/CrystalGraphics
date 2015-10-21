@@ -82,8 +82,8 @@ public:
 
 
 	void render(const int width, const int height, const Graphics::Camera<float>& camera) override {
-		const auto& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
-		const auto& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
+		const auto& projectionMatrix = camera.getPerspectiveMatrix().toArray();
+		const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 		const auto& eyePos = camera.getPos().toArray();
 
 		glViewport(0, 0, width, height);

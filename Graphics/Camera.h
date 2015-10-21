@@ -91,9 +91,9 @@ public:
 		const T dz = far_ - near_;
 
 		Math::Matrix4d<T> matrix;
-		matrix.setX00( 2.0f / dx );
-		matrix.setX11( 2.0f / dy );
-		matrix.setX22( -2.0f / dz );
+		matrix.setX00(T{ 2 } / dx);
+		matrix.setX11(T{ 2 } / dy);
+		matrix.setX22(T{-2 } / dz);
 		matrix.setX30( -(right + left) / dx );
 		matrix.setX31( -(top + bottom) / dy );
 		matrix.setX32( -(far_ + near_) / dz );
@@ -122,13 +122,12 @@ public:
 private:
 	T near_;
 	T far_;
-	Math::Vector3d<T> pos;
-
 	T left;
 	T right;
 	T bottom;
 	T top;
 
+	Math::Vector3d<T> pos;
 	Math::Vector3d<T> angle;
 };
 

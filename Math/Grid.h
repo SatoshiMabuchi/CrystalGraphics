@@ -44,17 +44,11 @@ public:
 		return Grid1d(bs);
 	}
 
-	bool equals(const Grid1d& rhs) const {
-		return values == rhs.values;
-	}
+	bool equals(const Grid1d& rhs) const { return values == rhs.values; }
 
-	bool operator==(const Grid1d& rhs) const {
-		return equals(rhs);
-	}
+	bool operator==(const Grid1d& rhs) const { return equals(rhs); }
 
-	bool operator!=(const Grid1d& rhs) const {
-		return !equals(rhs);
-	}
+	bool operator!=(const Grid1d& rhs) const { return !equals(rhs); }
 
 private:
 	std::vector< T > values;
@@ -79,10 +73,7 @@ public:
 
 	T get(const size_t x, const size_t y) const { return grids[y].get(x); }
 
-	Grid2d& set(const size_t x, const size_t y, const T v) {
-		grids[y].set(x, v);
-		return (*this);
-	}
+	void set(const size_t x, const size_t y, const T v) { grids[y].set(x, v); }
 
 	size_t getSizeX() const { return grids.front().getSize(); }
 
@@ -143,9 +134,7 @@ public:
 
 	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(x,y); }
 
-	void set(const size_t x, const size_t y, const size_t z, const T v) {
-		grids[z].set(x, y, v);
-	}
+	void set(const size_t x, const size_t y, const size_t z, const T v) { grids[z].set(x, y, v); }
 
 	size_t getSizeX() const { return grids.front().getSizeX(); }
 
@@ -165,17 +154,16 @@ public:
 		return Grid3d(gs);
 	}
 
-	Grid3d& add(const size_t x, const size_t y, const size_t z, const T v) {
+	void add(const size_t x, const size_t y, const size_t z, const T v) {
 		const auto vv = this->get(x, y, z) + v;
 		this->set(x, y, z, vv);
-		return (*this);
 	}
 
 	Grid3d& sub(const size_t x, const size_t y, const size_t z, const T v) {
 		return add( x, y, z, -v );
 	}
 
-	Grid3d& add(const Grid3d& rhs) {
+	void add(const Grid3d& rhs) {
 		for (size_t x = 0; x < getSizeX(); ++x) {
 			for (size_t y = 0; y < getSizeY(); ++y) {
 				for (size_t z = 0; z < getSizeZ(); ++z) {
@@ -184,7 +172,6 @@ public:
 				}
 			}
 		}
-		return (*this);
 	}
 
 	Grid3d& sub(const Grid3d& rhs) {
@@ -199,7 +186,7 @@ public:
 		return (*this);
 	}
 
-	Grid3d& set(const std::array<unsigned int, 3>& start, const Grid3d& rhs) {
+	void set(const std::array<unsigned int, 3>& start, const Grid3d& rhs) {
 		for (size_t x = 0; x < rhs.getSizeX(); ++x) {
 			for (size_t y = 0; y < rhs.getSizeY(); ++y) {
 				for (size_t z = 0; z < rhs.getSizeZ(); ++z) {
@@ -208,7 +195,6 @@ public:
 				}
 			}
 		}
-		return (*this);
 	}
 
 
@@ -257,30 +243,17 @@ public:
 		return isAllLower(i, j, k, threshold) || isAllHigher(i, j, k, threshold);
 	}
 
-	bool isBoundary(const size_t i, const size_t j, const size_t k, const T threshold) const {
-		return !isNotBoundary(i, j, k, threshold);
-	}
+	bool isBoundary(const size_t i, const size_t j, const size_t k, const T threshold) const { return !isNotBoundary(i, j, k, threshold); }
 
-	bool isLower(const size_t i , const size_t j, const size_t k ,const T threshold) const {
-		return (get(i, j, k) < threshold);
-	}
+	bool isLower(const size_t i , const size_t j, const size_t k ,const T threshold) const { return (get(i, j, k) < threshold); }
 
-	bool isHigher(const size_t i, const size_t j, const size_t k, const T threshold) const {
-		return !isLower(i, j, k, threshold);
-	}
+	bool isHigher(const size_t i, const size_t j, const size_t k, const T threshold) const { return !isLower(i, j, k, threshold); }
 
-	bool equals(const Grid3d& rhs) const {
-		return grids == rhs.grids;
-	}
+	bool equals(const Grid3d& rhs) const { return grids == rhs.grids; }
 
-	bool operator==(const Grid3d& rhs) const {
-		return equals(rhs);
-	}
+	bool operator==(const Grid3d& rhs) const { return equals(rhs); }
 
-	bool operator!=(const Grid3d& rhs) const {
-		return !equals(rhs);
-	}
-
+	bool operator!=(const Grid3d& rhs) const { return !equals(rhs); }
 
 private:
 	Grid2dVector<T> grids;

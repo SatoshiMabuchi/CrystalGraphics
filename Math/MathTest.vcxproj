@@ -15,7 +15,6 @@
     <ClCompile Include="BitMarchingCubeTest.cpp" />
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="BoxTest.cpp" />
-    <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="GridSpaseBaseTest.cpp" />
     <ClCompile Include="GridTest.cpp" />
@@ -26,7 +25,6 @@
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="PositionValueTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
-    <ClCompile Include="RangeTest.cpp" />
     <ClCompile Include="SpaceTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
@@ -39,7 +37,6 @@
     <ClInclude Include="..\Math\Bitmap.h" />
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Box.h" />
-    <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Grid.h" />
     <ClInclude Include="..\Math\GridSpaceBase.h" />
@@ -56,7 +53,6 @@
     <ClInclude Include="Line.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="PositionValue.h" />
-    <ClInclude Include="Range.h" />
     <ClInclude Include="Volume.h" />
     <ClInclude Include="VolumeCell.h" />
   </ItemGroup>

@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="BoxTest.cpp" />
     <ClCompile Include="SphereTest.cpp" />
-    <ClCompile Include="ConeTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
@@ -15,7 +14,6 @@
     <ClCompile Include="BitSpaceTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="LineTest.cpp" />
-    <ClCompile Include="RangeTest.cpp" />
     <ClCompile Include="MarchingCubeTableTest.cpp">
       <Filter>MarchingCube</Filter>
     </ClCompile>
@@ -43,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Math\Box.h" />
-    <ClInclude Include="..\Math\Cone.h" />
     <ClInclude Include="..\Math\Cylinder.h" />
     <ClInclude Include="..\Math\Quaternion.h" />
     <ClInclude Include="..\Math\Sphere.h" />
@@ -56,7 +53,6 @@
     <ClInclude Include="..\Math\BitSpace.h" />
     <ClInclude Include="..\Math\Kernel.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="Range.h" />
     <ClInclude Include="..\Math\MarchingCube.h">
       <Filter>MarchingCube</Filter>
     </ClInclude>

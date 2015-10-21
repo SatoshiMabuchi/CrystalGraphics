@@ -71,8 +71,8 @@ public:
 			return;
 		}
 
-		const std::vector<float>& projectionMatrix = camera.getPerspectiveMatrix().toArray4x4();
-		const std::vector<float>& modelviewMatrix = camera.getModelviewMatrix().toArray4x4();
+		const auto& projectionMatrix = camera.getPerspectiveMatrix().toArray();
+		const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
 		//assert(GL_NO_ERROR == glGetError());
 		const auto error = glGetError();
