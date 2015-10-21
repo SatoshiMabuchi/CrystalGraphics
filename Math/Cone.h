@@ -45,26 +45,6 @@ public:
 		return radius * radius * Tolerance<T>::getPI() * height / 3.0f;
 	}
 
-	void outerOffset(const float offsetLength) {};
-	
-	/*
-	Sphere getOuterOffset(const float offsetLength) const {
-		Sphere sphere = *this;
-		sphere.radius += offsetLength;
-		assert( sphere.isValid() );
-		return sphere;
-	}*/
-
-	virtual void innerOffset(const float offsetLength) {};
-
-	/*Sphere getInnerOffset(const float offsetLength) const {
-		Sphere sphere = *this;
-		sphere.radius -= offsetLength;
-		assert( sphere.isValid() );
-		return sphere;
-	}
-	*/
-
 private:
 	Vector3d<T> center;
 	float radius;

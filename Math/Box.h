@@ -19,16 +19,16 @@ public:
 	{
 	}
 
-	Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY) :
-		maxX(std::max<T>(pointX.getX(), pointY.getX())),
-		maxY(std::max<T>(pointX.getY(), pointY.getY())),
-		maxZ(std::max<T>(pointX.getZ(), pointY.getZ()))
+	Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY)
 	{
 		const auto x = std::min<T>(pointX.getX(), pointY.getX());
 		const auto y = std::min<T>(pointX.getY(), pointY.getY());
 		const auto z = std::min<T>(pointX.getZ(), pointY.getZ());
 		this->start = Vector3d<T>(x, y, z);
-
+		const auto endX = std::max<T>(pointX.getX(), pointY.getX());
+		const auto endY = std::max<T>(pointX.getY(), pointY.getY());
+		const auto endZ = std::max<T>(pointX.getZ(), pointY.getZ());
+		this->end = Vector3d<T>(endX, endY, endZ);
 		assert(isValid());
 	}
 
@@ -46,9 +46,10 @@ public:
 		const auto z = std::min<T>( getMinZ(), v.getZ());
 		start = Vector3d <T>(x, y, z);
 
-		maxX = std::max<T>(maxX, v.getX());
-		maxY = std::max<T>(maxY, v.getY());
-		maxZ = std::max<T>(maxZ, v.getZ());
+		const auto endX = std::max<T>(end.getX(), v.getX());
+		const auto endY = std::max<T>(end.getY(), v.getY());
+		const auto endZ = std::max<T>(end.getZ(), v.getZ());
+		end = Vector3d<T>(endX, endY, endZ);
 	}
 
 	void add(const Box& b) {
@@ -56,16 +57,18 @@ public:
 		const auto y = std::min<T>( getMinY(), b.getMinY());
 		const auto z = std::min<T>( getMinZ(), b.getMinZ());
 
-		maxX = std::max<T>(maxX, b.getMaxX());
-		maxY = std::max<T>(maxY, b.getMaxY());
-		maxZ = std::max<T>(maxZ, b.getMaxZ());
+
+		const auto ex = std::max<T>(end.getX(), b.getMaxX());
+		const auto ey = std::max<T>(end.getY(), b.getMaxY());
+		const auto ez = std::max<T>(end.getZ(), b.getMaxZ());
+		end = Vector3d<T>(ex, ey, ez);
 	}
 	
 	T getVolume() const {
-		return (maxX - getMinX()) * (maxY - getMinY()) * (maxZ - getMinZ());
+		return (end.getX() - getMinX()) * (end.getY() - getMinY()) * (end.getZ() - getMinZ());
 	}
 	
-	Vector3d<T> getMax() const { return Vector3d<T>(maxX, maxY, maxZ); }
+	Vector3d<T> getMax() const { return Vector3d<T>(end.getX(), end.getY(), end.getZ()); }
 	
 	Vector3d<T> getMin() const { return Vector3d<T>(getMinX(), getMinY(), getMinZ()); }
 
@@ -75,17 +78,17 @@ public:
 
 	Vector3d<T> getCenter() const {
 		return Vector3d<T>(
-			(getMinX() + maxX) / T{ 2 },
-			(getMinY() + maxY) / T{ 2 },
-			(getMinZ() + maxZ) / T{ 2 }
+			(getMinX() + end.getX()) / T{ 2 },
+			(getMinY() + end.getY()) / T{ 2 },
+			(getMinZ() + end.getZ()) / T{ 2 }
 			);
 	}
 
 
 	bool isInterior(const Vector3d<T>& point) const {
-		const bool xIsInterior = (getMinX() < point.getX() && point.getX() < maxX);
-		const bool yIsInterior = (getMinY() < point.getY() && point.getY() < maxY);
-		const bool zIsInterior = (getMinZ() < point.getZ() && point.getZ() < maxZ);
+		const bool xIsInterior = (getMinX() < point.getX() && point.getX() < end.getX());
+		const bool yIsInterior = (getMinY() < point.getY() && point.getY() < end.getY());
+		const bool zIsInterior = (getMinZ() < point.getZ() && point.getZ() < end.getZ());
 		return xIsInterior && yIsInterior && zIsInterior;
 	}
 	
@@ -98,9 +101,7 @@ public:
 		const auto y = getMinY() - offsetLength;
 		const auto z = getMinZ() - offsetLength;
 		start = Vector3d<T>(x, y, z);
-		maxX += offsetLength;
-		maxY += offsetLength;
-		maxZ += offsetLength;
+		end += Vector3d<T>(offsetLength, offsetLength, offsetLength);
 		assert(isValid());
 	}
 	
@@ -121,9 +122,9 @@ public:
 
 	Vector3dVector<T> toPoints(const T divideLength) const {
 		Vector3dVector<T> points;
-		for (T x = getMinX(); x <= maxX; x += divideLength) {
-			for (T y = getMinY(); y <= maxY; y += divideLength) {
-				for (T z = getMinZ(); z <= maxZ; z += divideLength) {
+		for (T x = getMinX(); x <= end.getX(); x += divideLength) {
+			for (T y = getMinY(); y <= end.getY(); y += divideLength) {
+				for (T z = getMinZ(); z <= end.getZ(); z += divideLength) {
 					points.push_back(Vector3d(x, y, z));
 				}
 			}
@@ -131,38 +132,38 @@ public:
 		return points;
 	}
 
-	T getMaxX() const { return maxX; }
+	T getMaxX() const { return end.getX(); }
 
 	T getMinX() const { return start.getX(); }
 
-	T getMaxY() const { return maxY; }
+	T getMaxY() const { return end.getY(); }
 
 	T getMinY() const { return start.getY(); }
 
-	T getMaxZ() const { return maxZ; }
+	T getMaxZ() const { return end.getZ(); }
 
 	T getMinZ() const { return start.getZ(); }
 
 	Vector3d<T> getLength() const {
-		return Vector3d<T>(maxX - getMinX(), maxY - getMinY(), maxZ - getMinZ());
+		return Vector3d<T>(end.getX() - getMinX(), end.getY() - getMinY(), end.getZ() - getMinZ());
 	}
 
 	bool isValid() const {
 		return
-			(getMinX() <= maxX) && (getMinY() <= maxY) && (getMinZ() <= maxZ);
+			(getMinX() <= end.getX()) && (getMinY() <= end.getY()) && (getMinZ() <= end.getZ());
 	}
 
 	bool isShirinked() const{
 		return
-			(getMinX() == maxX) && (getMinY() == maxY) && (getMinZ() == maxZ);
+			(getMinX() == end.getX()) && (getMinY() == end.getY()) && (getMinZ() == end.getZ());
 	}
 
 	bool equals(const Box& rhs) const {
 		return
 			start == rhs.getStart() &&
-			Tolerance<T>::isEqualLoosely(maxX, rhs.maxX) &&
-			Tolerance<T>::isEqualLoosely(maxY, rhs.maxY) &&
-			Tolerance<T>::isEqualLoosely(maxZ, rhs.maxZ);
+			Tolerance<T>::isEqualLoosely(end.getX(), rhs.end.getX()) &&
+			Tolerance<T>::isEqualLoosely(end.getY(), rhs.end.getY()) &&
+			Tolerance<T>::isEqualLoosely(end.getZ(), rhs.end.getZ());
 	}
 
 	bool operator==( const Box& rhs ) const { return equals( rhs ); }
@@ -171,13 +172,13 @@ public:
 
 	bool hasIntersection(const Box& rhs) const {
 		const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
-		const auto lx = getLength().getX() * 0.5 + rhs.getLength().getX() * 0.5;
+		const auto lx = getLength().getX() / T{ 2 } +rhs.getLength().getX() / T{ 2 };
 
 		const auto disty = std::fabs(getCenter().getY() - rhs.getCenter().getY());
-		const auto ly = getLength().getY() * 0.5 + rhs.getLength().getY() * 0.5;
+		const auto ly = getLength().getY() / T{ 2 } +rhs.getLength().getY() / T{ 2 };
 
 		const auto distz = std::fabs(getCenter().getZ() - rhs.getCenter().getZ());
-		const auto lz = getLength().getZ() * 0.5 + rhs.getLength().getZ() * 0.5;
+		const auto lz = getLength().getZ() / T{ 2 } +rhs.getLength().getZ() / T{ 2 };
 
 		return (distx < lx && disty < ly && distz < lz);
 	}
@@ -200,10 +201,8 @@ public:
 
 
 private:
-	T maxX;
-	T maxY;
-	T maxZ;
 	Vector3d<T> start;
+	Vector3d<T> end;
 };
 
 	}
