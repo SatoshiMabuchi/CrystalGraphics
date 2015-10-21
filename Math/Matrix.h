@@ -435,8 +435,7 @@ template< typename T >
 class Matrix4d
 {
 public:
-	Matrix4d(void) :
-		x(16)
+	Matrix4d(void)
 	{
 		x[0] = 1.0;		x[1] = 0.0;		x[2] = 0.0;		x[3] = 0.0;
 		x[4] = 0.0;		x[5] = 1.0;		x[6] = 0.0;		x[7] = 0.0;
@@ -449,8 +448,7 @@ public:
 		const T x10, const T x11, const T x12, const T x13,
 		const T x20, const T x21, const T x22, const T x23,
 		const T x30, const T x31, const T x32, const T x33
-		) :
-		x(16)
+		)
 	{
 		x[0] = x00;		x[1] = x01;		x[2] = x02;		x[3] = x03;
 		x[4] = x10;		x[5] = x11;		x[6] = x12;		x[7] = x13;
@@ -458,8 +456,7 @@ public:
 		x[12] = x30;	x[13] = x31;	x[14] = x32;	x[15] = x33;
 	}
 
-	~Matrix4d(void)
-	{}
+	~Matrix4d(void) = default;
 
 	static Matrix4d Zero() {
 		return Matrix4d
@@ -555,9 +552,7 @@ public:
 
 	bool operator!=(const Matrix4d& rhs) const { return !equals(rhs); }
 
-	std::vector< T > toArray4x4() const {
-		return x;
-	}
+	std::array< T, 16 > toArray() const { return x; }
 
 	void setX00(const T v) { x[0] = v; }
 
@@ -624,7 +619,7 @@ public:
 	T getX33() const { return x[15]; }
 
 private:
-	std::vector< T > x;
+	std::array< T, 16 > x;
 };
 
 	}

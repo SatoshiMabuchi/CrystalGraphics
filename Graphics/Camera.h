@@ -61,16 +61,6 @@ public:
 		const float dy = top - bottom;
 		const float dz = far_ - near_;
 
-		/*Math::Matrix4d matrix
-		matrix.x[ 0] =  2.0f / dx;
-		matrix.x[ 5] =  2.0f / dy;
-		matrix.x[10] = -1.0f / dz;
-		matrix.x[11] = -1.0f;
-		matrix.x[12] = -(right + left) / dx;
-		matrix.x[13] = -(bottom + top) / dy;
-		matrix.x[14] = -near_ / dz;	
-		*/
-
 		return Math::Matrix4d<T>(
 			2.0f / dx, 0.0, 0.0, 0.0,
 			0.0, 2.0f / dy, 0.0, 0.0,
@@ -91,23 +81,22 @@ public:
 
 
 	Math::Matrix4d<T> getOrthogonalMatrix() const {
-		const T left = -0.5f;
-		const T right = 0.5f;
-		const T bottom = 0.0f;
-		const T top = 1.0f;
+		const T left = T{ -0.5 };
+		const T right = T{ 0.5 };
+		const T bottom = T{ 0 };
+		const T top = T{ 1 };
 
 		const T dx = right - left;
 		const T dy = top - bottom;
 		const T dz = far_ - near_;
 
 		Math::Matrix4d<T> matrix;
-		matrix.setIdentityMatrix();
-		matrix.x[0] =  2.0f / dx;
-		matrix.x[5] =  2.0f / dy;
-		matrix.x[10] = -2.0f / dz;
-		matrix.x[12] = -(right + left) / dx;
-		matrix.x[13] = -(top + bottom) / dy;
-		matrix.x[14] = -(far_ + near_) / dz;
+		matrix.setX00( 2.0f / dx );
+		matrix.setX11( 2.0f / dy );
+		matrix.setX22( -2.0f / dz );
+		matrix.setX30( -(right + left) / dx );
+		matrix.setX31( -(top + bottom) / dy );
+		matrix.setX32( -(far_ + near_) / dz );
 
 		return matrix;
 	}

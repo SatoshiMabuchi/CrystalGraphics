@@ -185,6 +185,6 @@ void ShaderUtil::setUniformMatrix( const int id, const std::string& name, const 
 
 void ShaderUtil::setUniformMatrix( unsigned int location, const Matrix4d< float >& matrix )
 {
-	std::vector< float > values = matrix.toArray4x4();
+	std::array< float, 16 > values = matrix.toArray();
 	glUniformMatrix4fv( location, 1, GL_FALSE, &( values.front() ) );
 }

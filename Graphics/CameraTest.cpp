@@ -10,14 +10,14 @@ using T = float;
 TEST( CameraTest, TestGetConstruct )
 {
 	Camera<T> c;
-	EXPECT_EQ(c.getNear(), 1.0f );// == Color::Black() );
-	EXPECT_EQ(c.getFar(), 10.0f);
-	EXPECT_EQ(Vector3d<T>(0, 0, 0), c.getPos());
+	EXPECT_EQ(  1, c.getNear() );
+	EXPECT_EQ( 10, c.getFar()  );
+	EXPECT_EQ( Vector3d<T>(0, 0, 0), c.getPos() );
 }
 
 TEST( CameraTest, TestMove )
 {
-	Camera<float> c;
+	Camera<T> c;
 	c.move(Vector3d<T>(1.0f, 0.0f, 0.0f));
 
 	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPos() );
@@ -26,14 +26,15 @@ TEST( CameraTest, TestMove )
 TEST(CameraTest, TestGetRotationMatrix)
 {
 	{
-		Camera<float> c;
-		const auto& expected = Matrix3d<float>::Identity();
+		Camera<T> c;
+		const auto& expected = Matrix3d<T>::Identity();
 		const auto& actual = c.getRotationMatrix();
 		EXPECT_EQ(expected, actual);
 	}
+
 	{
-		Camera<float> c;
-		c.setAngle(Vector3d<float>(Tolerance<float>::getHalfPI(), 0.0, 0.0));
+		Camera<T> c;
+		c.setAngle(Vector3d<T>(Tolerance<T>::getHalfPI(), 0, 0));
 		const auto& actual = c.getRotationMatrix();
 	}
 }
@@ -43,28 +44,25 @@ TEST( CameraTest, TestGetPerspectiveMatrix )
 {
 	const Camera<float> c;
 	const Matrix4d<float>& m = c.getPerspectiveMatrix();
-	{
-		const T expected = T(2) / ( c.getRight() - c.getLeft() );
-		EXPECT_EQ( expected, m.getX00() );
-		EXPECT_EQ( 0.0, m.getX01() );
-		EXPECT_EQ( 0.0, m.getX02() );
-		EXPECT_EQ( 0.0, m.getX03() );
-	}
+
+	EXPECT_EQ( 2, m.getX00() );
+	EXPECT_EQ( 0, m.getX01() );
+	EXPECT_EQ( 0, m.getX02() );
+	EXPECT_EQ( 0, m.getX03() );
+	EXPECT_EQ( 0, m.getX10() );
+	EXPECT_EQ( 2, m.getX11() );
+	EXPECT_EQ( 0, m.getX12() );
+	EXPECT_EQ( 0, m.getX13() );
+}
+
+TEST( CameraTest, TestGetOrthogonalMatrix )
+{
+	const Camera<float> c;
+	const Matrix4d<float>& m = c.getOrthogonalMatrix();
 
 	{
-		const T expected = T(2) / ( c.getTop() - c.getBottom() );
-		EXPECT_EQ( 0.0, m.getX10() );
-		EXPECT_EQ( expected, m.getX11() );
-		EXPECT_EQ( 0.0, m.getX12() );
-		EXPECT_EQ( 0.0, m.getX13() );
+		EXPECT_EQ(2, m.getX00());
+		EXPECT_EQ(2, m.getX11());
 	}
 
-	/*
-	{
-		EXPECT_EQ(  0.0, m.getX30() );
-		EXPECT_EQ(  0.0, m.getX31() );
-		//EXPECT_EQ( -1.0, m.getX32() );
-		//EXPECT_EQ(  0.0, m.getX33() );
-	}
-	*/
 }

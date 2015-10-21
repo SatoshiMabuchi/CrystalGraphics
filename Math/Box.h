@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_BoxH__
-#define __CRYSTAL_MATH_BoxH__
+#ifndef __CRYSTAL_MATH_BOX_H__
+#define __CRYSTAL_MATH_BOX_H__
 
 #include "Vector.h"
 
