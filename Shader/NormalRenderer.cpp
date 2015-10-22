@@ -116,8 +116,8 @@ void NormalRenderer::render(const int width, const int height, const Camera<floa
 		return;
 	}
 
-	const Matrix4d<float>& perspectiveMatrix = camera.getPerspectiveMatrix();
-	const Matrix4d<float>& modelviewMatrix = camera.getModelviewMatrix();
+	const auto& perspectiveMatrix = camera.getPerspectiveMatrix();
+	const auto& modelviewMatrix = camera.getModelviewMatrix();
 
 	assert(GL_NO_ERROR == glGetError());
 
