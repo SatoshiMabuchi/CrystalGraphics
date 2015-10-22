@@ -81,7 +81,9 @@ public:
 
 	~BlendBrush() = default;
 
-	GeomType getDensity() const { return density; }
+	void setDensity(const ValueType d) { density = d; }
+
+	ValueType getDensity() const { return density; }
 
 	virtual void add(Math::Volume3d<GeomType,ValueType>& grid) const override {
 		const GeomType radius = getSize().getX() * GeomType(0.5);
